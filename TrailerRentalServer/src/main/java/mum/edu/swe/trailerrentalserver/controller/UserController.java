@@ -3,6 +3,7 @@ package mum.edu.swe.trailerrentalserver.controller;
 import mum.edu.swe.trailerrentalserver.domain.User;
 import mum.edu.swe.trailerrentalserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +26,13 @@ public class UserController {
         return (List<User>) userService.findAll();
     }
 
-    @GetMapping(value ="/users/{id}")
+    @GetMapping(value ="/user/{id}")
     public User getUserById(@PathVariable("id") Long userId){
         System.out.println("getUserById =====");
         return userService.findById(userId);
     }
 
-    @PostMapping(value = "/users", produces = "application/json")
+    @PostMapping(value = "/user", produces = "application/json")
     //@ResponseStatus(HttpStatus.ACCEPTED)
     public User saveUser(@Valid @RequestBody User user) {
         System.out.println("create / update - User =====");
@@ -42,15 +43,23 @@ public class UserController {
         return user;
     }
 
-    @DeleteMapping(value ="/users/{id}")
+    @DeleteMapping(value ="/user/{id}")
     public boolean deleteUser(@PathVariable("id") Long userId) {
         System.out.println("deleteUser =====");
-        return userService.delete(userId);
+        try{
+            userService.delete(userId);
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return false;
+        }
+        return true;
     }
 
     @GetMapping(value ="/users/searchEmail/{email}")
     public List<User> getUserByEmail(@PathVariable("email") String email){
         System.out.println("getUserByEmail =====");
+
         return userService.findUsersByEmail(email);
     }
 

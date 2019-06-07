@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -45,6 +42,7 @@ public class User {
     private int sex;
 
     @Column(name="reg_date")
+    @PastOrPresent
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate regDate;
 

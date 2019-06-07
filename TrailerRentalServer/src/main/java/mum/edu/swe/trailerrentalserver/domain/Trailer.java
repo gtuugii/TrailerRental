@@ -5,11 +5,11 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name="trailer")
-@Getter
-@Setter
+@Getter @Setter
 public class Trailer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +24,14 @@ public class Trailer {
 
     private String location;
 
+    @Positive
     private float amount;
 
-    private Status.TRAILER status;
+    //private Status.TRAILER status;
 
-    //private int status;
+    private int status;
 
     private String feature;
+
+    private String imagePath;
 }

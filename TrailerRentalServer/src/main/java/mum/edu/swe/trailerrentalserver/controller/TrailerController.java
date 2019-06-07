@@ -10,25 +10,25 @@ import java.util.List;
 
 @CrossOrigin(origins = { "http://localhost:9999", "http://localhost:8888" }, maxAge = 6000, allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/v1/trailers")
+@RequestMapping("/api/v1")
 public class TrailerController {
 
     @Autowired
     private TrailerService trailerService;
 
-    @GetMapping(value ="/")
+    @GetMapping(value ="/trailers")
     public List<Trailer> getAllTrailers(){
         System.out.println("getAllTrailers =====");
         return (List<Trailer>) trailerService.findAll();
     }
 
-    @GetMapping(value ="/{id}")
+    @GetMapping(value ="/trailer/{id}")
     public Trailer getTrailerById(@PathVariable("id") Long Id){
         System.out.println("getTrailerById =====");
         return trailerService.findById(Id);
     }
 
-    @PostMapping(value = "/", produces = "application/json")
+    @PostMapping(value = "/trailer", produces = "application/json")
     //@ResponseStatus(HttpStatus.ACCEPTED)
     public Trailer save(@Valid @RequestBody Trailer trailer) {
         System.out.println("create / update =====");
@@ -36,7 +36,7 @@ public class TrailerController {
         return trailer;
     }
 
-    @DeleteMapping(value ="/{id}")
+    @DeleteMapping(value ="/trailer/{id}")
     public boolean delete(@PathVariable("id") Long Id) {
         System.out.println("delete =====");
         return trailerService.delete(Id);

@@ -44,6 +44,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
 	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
+		//registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET");
 		registry.addMapping("/**").allowedOrigins("http://localhost:8888").allowedMethods("GET");
 	}
 
