@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Entity
@@ -14,21 +15,20 @@ public class Trailer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="trailer_id")
-    private Long Id;
+    private Long trailer_id;
 
-    @OneToOne
-    private TrailerType trailerType;
+    @NotNull
+    private int type_id;
 
     @NotEmpty
     private String number;
-
+    
     private String location;
 
     @Positive
     private float amount;
 
-    //private Status.TRAILER status;
-
+    // 0-ACTIVE, 1-PENDING, 2-RENTED, 3-MAINTENANCE
     private int status;
 
     private String feature;
