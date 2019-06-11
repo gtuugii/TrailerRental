@@ -10,6 +10,7 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
@@ -44,8 +45,17 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
 	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		//registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET");
-		registry.addMapping("/**").allowedOrigins("http://localhost:8888").allowedMethods("GET");
+		registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET");
+		//registry.addMapping("/**").allowedOrigins("http://localhost:8888").allowedMethods("GET");
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("swagger-ui.html")
+				.addResourceLocations("classpath:/META-INF/resources/");
+
+		registry.addResourceHandler("/webjars/**")
+				.addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
 
 }
