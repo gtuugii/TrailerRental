@@ -15,14 +15,15 @@ public class Trailer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="trailer_id")
-    private Long trailer_id;
+    private Long trailerId;
 
     @NotNull
-    private int type_id;
+    @Column(name="type_id")
+    private int typeId;
 
     @NotEmpty
     private String number;
-    
+
     private String location;
 
     @Positive
@@ -33,5 +34,6 @@ public class Trailer {
 
     private String feature;
 
+    @Column(name="image_path")
     private String imagePath;
 }
