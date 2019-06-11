@@ -37,8 +37,10 @@ public class TrailerController {
     }
 
     @DeleteMapping(value ="/trailer/{id}")
-    public boolean delete(@PathVariable("id") Long Id) {
+    public Trailer delete(@PathVariable("id") Long Id) {
         System.out.println("delete =====");
-        return trailerService.delete(Id);
+        Trailer trailer = trailerService.findById(Id);
+        trailerService.delete(Id);
+        return trailer;
     }
 }

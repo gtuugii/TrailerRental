@@ -44,16 +44,17 @@ public class UserController {
     }
 
     @DeleteMapping(value ="/user/{id}")
-    public boolean deleteUser(@PathVariable("id") Long userId) {
+    public User deleteUser(@PathVariable("id") Long userId) {
         System.out.println("deleteUser =====");
-        try{
+        User user = userService.findById(userId);
+        //try{
             userService.delete(userId);
-        }
-        catch(Exception ex){
-            System.out.println(ex.getMessage());
-            return false;
-        }
-        return true;
+//        }
+//        catch(Exception ex){
+//            System.out.println(ex.getMessage());
+//            return user;
+//        }
+        return user;
     }
 
     @GetMapping(value ="/users/searchEmail/{email}")
