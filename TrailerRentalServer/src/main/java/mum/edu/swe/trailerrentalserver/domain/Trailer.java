@@ -29,7 +29,7 @@ public class Trailer {
     @Positive
     private float amount;
 
-    // 0-ACTIVE, 1-PENDING, 2-RENTED, 3-MAINTENANCE
+    // 0-MAINTENANCE 1-ACTIVE, 2-PENDING, 3-RENTED
     private int status;
 
     private String feature;
