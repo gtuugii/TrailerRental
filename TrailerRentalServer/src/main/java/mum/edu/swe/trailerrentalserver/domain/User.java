@@ -38,7 +38,10 @@ public class User {
     @Column(name="picture_path")
     private String picturePath;
 
+    //0-INACTIVE, 1-ACTIVE
     private int status;
+
+    //0-Male, 1-Female
     private int sex;
 
     @Column(name="reg_date")
