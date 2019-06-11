@@ -37,6 +37,6 @@ public class RentServiceImpl implements RentService {
 
     @Override
     public Rent findById(Long id) {
-        return rentRepository.findById(id).get();
+        return rentRepository.findById(id).orElse(null);
     }
 }

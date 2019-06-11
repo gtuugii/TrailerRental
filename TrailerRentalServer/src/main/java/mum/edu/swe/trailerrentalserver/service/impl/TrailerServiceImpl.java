@@ -39,6 +39,6 @@ public class TrailerServiceImpl implements TrailerService {
 
     @Override
     public Trailer findById(Long id) {
-        return trailerRepository.findById(id).get();
+        return trailerRepository.findById(id).orElse(null);
     }
 }

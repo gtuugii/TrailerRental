@@ -17,9 +17,7 @@ public class TrailerrentalserverApplication {
 
     @Bean
     public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource
-                = new ReloadableResourceBundleMessageSource();
-
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasenames("classpath:errorMessages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
