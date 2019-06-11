@@ -21,6 +21,8 @@ public class User {
     @NotEmpty
     @Size(min = 8, max = 50, message = "{Size.String.validation}")
     private String email;
+
+    @NotEmpty
     private String password;
 
     @NotEmpty
@@ -43,6 +45,11 @@ public class User {
 
     //0-Male, 1-Female
     private int sex;
+
+    @Column(name="birth_date")
+    @PastOrPresent
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate birthDate;
 
     @Column(name="reg_date")
     @PastOrPresent
