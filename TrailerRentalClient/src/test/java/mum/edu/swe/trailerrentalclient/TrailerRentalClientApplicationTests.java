@@ -1,4 +1,4 @@
-package mum.edu.swe.trailerrentalclient.trailerrentalclient;
+package mum.edu.swe.trailerrentalclient;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

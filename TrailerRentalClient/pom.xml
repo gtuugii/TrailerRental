@@ -8,11 +8,11 @@
         <version>2.1.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>mum.edu.swe.trailerrentalclient</groupId>
+    <groupId>mum.edu.swe</groupId>
     <artifactId>trailerrentalclient</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Trailer Rental Client</name>
-    <description>finalProject.Server of SWE</description>
+    <description>finalProject.Client of SWE</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -33,11 +33,6 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

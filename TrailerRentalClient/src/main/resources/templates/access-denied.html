@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danger! - Custom Access Denied Page</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<div th:replace="fragments/header :: header"/>
+<body>
+<div class="container">
+    <h2>Alerts</h2>
+    <div class="alert alert-danger">
+        <strong>Danger!</strong> Custom Access Denied Page
+    </div>
+</div>
+</body>
+
+<div th:replace="fragments/footer :: footer"/>
+
+</html>

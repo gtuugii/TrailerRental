@@ -1,0 +1,77 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:fragment="header-css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+        <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script>
+            // $(document).ready(function(){
+            //     $("#enLang").click(function () {
+            //         console.log('en click');
+            //         window.location.replace('?lang=' + 'en');
+            //
+            //     })
+            //
+            //     $("#mnLang").click(function () {
+            //         console.log('mn click');
+            //         window.location.replace('?lang=' + 'mn');
+            //
+            //     })
+            // });
+        </script>
+
+    </div>
+
+</head>
+<body>
+
+<div th:fragment="header">
+    <div class="container-fluid">
+        <nav class="navbar navbar-inverse bg-success">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" th:text="#{trailerrental}"></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="navbar-brand" th:href="@{/authorization/login}" th:text="#{signin}"></a>
+                </li>
+                <li>
+                    <a class="navbar-brand" th:href="@{/users/add}" th:text="#{signup}"></a>
+                </li>
+                <li>
+                    <a class="navbar-brand" th:href="@{/users/list}" th:text="#{user}"></a>
+                </li>
+                <li>
+                    <a class="navbar-brand" th:href="@{/trailers/list}" th:text="#{trailer}"></a>
+                </li>
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" th:text="#{language}">
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li ><a id="enLang" val="en" href="?lang=en">English</a></li>
+                        <li><a id="mnLang" href="?lang=mn">Mongolia</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+<!--                <li sec:authorize="isAuthenticated()">-->
+                <li>
+                    <a href="/logout" th:href="@{#}" onclick="$('#form').submit();" th:text="#{signout}">
+                         <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;
+                    </a>
+                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/authorization/logout}"></form>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+</body>
+</html>

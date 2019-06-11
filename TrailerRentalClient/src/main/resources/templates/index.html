@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<!--<head sec:authorize="isAuthenticated()">-->
+    <meta charset="UTF-8">
+    <title>Welcome to Online Trailer Rental System</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<div th:replace="fragments/header :: header"/>
+
+<!--<body sec:authorize="isAuthenticated()">-->
+<body>
+    <div class="container">
+        <h2>Welcome to Online Trailer Rental System</h2>
+
+        <br>
+        <br>
+        <br>
+
+    </div>
+</body>
+
+<div th:replace="fragments/footer :: footer"/>
+
+</html>
