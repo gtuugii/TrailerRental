@@ -1,5 +1,7 @@
 package mum.edu.swe.trailerrentalserver.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,16 +21,18 @@ public class Rent {
     @Column(name="rent_id")
     private Long rentId;
 
-    //0-CLOSE, 1-OPEN
+    //0-CLOSE, 1-PENDING, 2-OPEN
     @Column(name="status")
     private int status;
 
     @Column(name="rent_date")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate rentDate;
 
     @Column(name="due_date")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dueDate;
 
     @NotNull
@@ -36,11 +40,16 @@ public class Rent {
 
     @Column(name="pay_date")
     //@DateTimeFormat(pattern = "yyyy-MM-dd")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate payDate;
 
-    private Long trailerId;
+    @ManyToOne
+    @JsonIgnore
+    private Trailer trailerId;
 
-    private Long userId;
+    @ManyToOne
+    @JsonIgnore
+    private User userId;
 
 }
