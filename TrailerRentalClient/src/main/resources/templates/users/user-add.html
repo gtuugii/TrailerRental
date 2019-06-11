@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit an User</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span th:text="#{useradd}">Add New Student</span></h3>
+        </div>
+        <div id="formContent" class="panel-body">
+            <span th:text="${result}" class="alert-danger"></span>
+            <form th:action="@{/users/edit}" th:object="${user}" method="post">
+
+                <div class="form-group">
+                    <label for="firstName" th:text="#{firstName}"></label>
+                    <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
+                    <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="alert-danger"></label>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName" th:text="#{lastName}"></label>
+                    <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
+                    <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="alert-danger"></label>
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber" th:text="#{phoneNumber}"></label>
+                    <input type="number" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" />
+                    <label th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="alert-danger"></label>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" th:text="#{email}"></label>
+                    <input type="text" class="form-control" id="email" th:field="*{email}" />
+                    <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert-danger"></label>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" th:text="#{password}"></label>
+                    <input type="password" class="form-control" id="password" th:field="*{email}" />
+                    <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert-danger"></label>
+                </div>
+
+<!--                <div class="form-group">-->
+<!--                    <label for="entry" th:text="#{status}"></label>-->
+<!--                    <select id="entry" th:field="*{status.key}" class="form-control">-->
+<!--                        <option th:each="entry : ${entries}"-->
+<!--                                th:value="${entry.id}"-->
+<!--                                th:utext="${entry.name}"-->
+<!--                        />-->
+<!--                    </select>-->
+<!--                    <label th:if="${#fields.hasErrors('entry.id')}" th:errors="*{entry.id}" class="alert-danger"></label>-->
+<!--                </div>-->
+
+                <div id="formFooter" class="form-group">
+                    <button type="submit" class="btn btn-primary form-control">Save</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

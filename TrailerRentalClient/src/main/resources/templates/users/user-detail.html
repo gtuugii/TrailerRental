@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title><span th:text="#{userdetails}">User Details</span></title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" th:text="#{userdetails}">Detail information of ${user.firstName} - ${user.lastName}</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="col-xs-12">
+
+                <div class="row vertical-align">
+
+                    <div class="col-xs-7">
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{id}">User Id</span></b></div>
+                            <div class="col-xs-6"><span th:text="${user.id}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{firstName}">First Name</span></b></div>
+                            <div class="col-xs-6"><span th:text="${user.firstName}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{lastName}">Last Name</span></b></div>
+                            <div class="col-xs-6"><span th:text="${user.lastName}"></span></div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-5">
+                        <div class="row">
+                            <div class="col-xs-2"><b><span th:text="#{email}">Email</span></b></div>
+                            <div class="col-xs-6"><span th:text="${user.email}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2"><b><span th:text="#{phoneNumber}">Phone Number</span></b></div>
+                            <div class="col-xs-6"><span th:text="${user.phoneNumber}"></span></div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
