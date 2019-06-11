@@ -1,7 +1,7 @@
 package mum.edu.swe.trailerrentalclient.controller;
 
 import mum.edu.swe.trailerrentalclient.config.Config;
-import mum.edu.swe.trailerrentalclient.model.Status;
+import mum.edu.swe.trailerrentalclient.model.DB;
 import mum.edu.swe.trailerrentalclient.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -27,7 +27,7 @@ public class UserController {
     private String api_url = Config.URL;
 
     @Autowired
-    Status status;
+    DB status;
 
     @GetMapping("/list")
     public String list(Model model){
@@ -76,7 +76,7 @@ public class UserController {
         System.out.println("users/user-add");
 
         model.addAttribute("status", status.userStatus);
-
+        model.addAttribute("sex", status.sex);
         System.out.println(status.userStatus);
 
         return "users/user-add";
@@ -89,6 +89,9 @@ public class UserController {
                        Model model){
         String result_str = "saved";
         try {
+            model.addAttribute("status", status.userStatus);
+            model.addAttribute("sex", status.sex);
+
             if (bindingResult.hasErrors()) {
                 return "users/user-add";
             }
@@ -123,6 +126,7 @@ public class UserController {
     public String edit(@PathVariable("id") Long id,
                        Model model){
         try {
+
             HttpHeaders headers = new HttpHeaders();
             //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
 
@@ -135,6 +139,7 @@ public class UserController {
             System.out.println("response: " + user);
 
             model.addAttribute("status", status.userStatus);
+            model.addAttribute("sex", status.sex);
             model.addAttribute("user", user);
 
         }
@@ -151,6 +156,9 @@ public class UserController {
                        RedirectAttributes redirectAttributes,
                        Model model){
         try {
+            model.addAttribute("status", status.userStatus);
+            model.addAttribute("sex", status.sex);
+
             if (bindingResult.hasErrors()) {
                 return "users/user-edit";
             }
@@ -161,7 +169,8 @@ public class UserController {
 
             RestTemplate restTemplate = new RestTemplate();
 
-            ResponseEntity<String> result = restTemplate.exchange(api_url + "user/", HttpMethod.PUT, entity, String.class);
+            //ResponseEntity<String> result = restTemplate.exchange(api_url + "user/", HttpMethod.PUT, entity, String.class);
+            ResponseEntity<String> result = restTemplate.exchange(api_url + "user/", HttpMethod.POST, entity, String.class);
 
             System.out.println("result: " + result.getBody());
             if (result.getBody() == null || result.getBody().trim().isEmpty()) {

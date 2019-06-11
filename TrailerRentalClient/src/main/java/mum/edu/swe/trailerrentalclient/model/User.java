@@ -3,6 +3,7 @@ package mum.edu.swe.trailerrentalclient.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -47,12 +48,12 @@ public class User {
     private int sex;
 
     @PastOrPresent
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate birthDate;
 
-    @PastOrPresent
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private LocalDate regDate;
+    //@PastOrPresent
+    //@JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate regDate = LocalDate.now();
 
     private List<Role> roles;
 

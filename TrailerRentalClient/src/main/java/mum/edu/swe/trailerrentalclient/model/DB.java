@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class Status {
+public class DB {
 
     //0-INACTIVE, 1-ACTIVE
     public Map<Integer, String> userStatus = new HashMap<Integer, String>() {
@@ -40,6 +40,14 @@ public class Status {
         {
             put(0, "CLOSED");
             put(1, "OPEN");
+        }
+    };
+
+    // 0-MALE 1-FEMALE
+    public Map<Integer, String> sex = new HashMap<Integer, String>() {
+        {
+            put(0, "MALE");
+            put(1, "FEMALE");
         }
     };
 
