@@ -36,11 +36,11 @@ public class GlobalExceptionHandler {
 //        return "403";
 //    }
 
-//    @ExceptionHandler({Exception.class})
-//    public String doIt(Exception e) {
-//        e.printStackTrace();
-//        return "redirect:/authorization/login";
-//    }
+    @ExceptionHandler({Exception.class})
+    public String doIt(Exception e) {
+        e.printStackTrace();
+        return "redirect:/authorization/login";
+    }
 
     private ValidationErrorDTO convertError(List<FieldError> fieldErrors) {
         ValidationErrorDTO validationErrorDto = new ValidationErrorDTO();

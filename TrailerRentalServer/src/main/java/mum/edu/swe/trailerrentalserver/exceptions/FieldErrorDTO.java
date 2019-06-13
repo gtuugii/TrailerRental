@@ -2,8 +2,8 @@ package mum.edu.swe.trailerrentalserver.exceptions;
 
 public class FieldErrorDTO {
 	private String field;
-
 	private String message;
+	//private long timeStamp;
 
 	public FieldErrorDTO(String field, String message) {
 		this.field = field;

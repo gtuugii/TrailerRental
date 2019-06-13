@@ -36,9 +36,6 @@ public class UserController {
     //@ResponseStatus(HttpStatus.ACCEPTED)
     public User saveUser(@Valid @RequestBody User user) {
         System.out.println("create / update - User =====");
-//        if(userService.findUsersByEmail(user.getEmail()) != null){
-//            return null;
-//        }
         userService.save(user);
         return user;
     }
@@ -47,13 +44,13 @@ public class UserController {
     public User deleteUser(@PathVariable("id") Long userId) {
         System.out.println("deleteUser =====");
         User user = userService.findById(userId);
-        //try{
+        try{
             userService.delete(userId);
-//        }
-//        catch(Exception ex){
-//            System.out.println(ex.getMessage());
-//            return user;
-//        }
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return user;
+        }
         return user;
     }
 

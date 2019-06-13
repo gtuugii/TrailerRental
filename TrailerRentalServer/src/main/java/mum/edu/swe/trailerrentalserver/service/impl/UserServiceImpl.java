@@ -4,6 +4,7 @@ import mum.edu.swe.trailerrentalserver.domain.User;
 import mum.edu.swe.trailerrentalserver.repository.UserRepository;
 import mum.edu.swe.trailerrentalserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        return (List<User>) userRepository.findAll();
+        return (List<User>) userRepository.findAll(Sort.by("firstName"));
     }
 
     @Override
