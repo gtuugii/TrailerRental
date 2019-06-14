@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add / Edit a Trailer</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span th:text="#{traileredit}">Add / Edit a Trailer</span></h3>
+        </div>
+        <div id="formContent" class="panel-body">
+            <form th:action="@{/trailers/edit}" th:object="${trailer}" method="post">
+                <span th:text="${result}" class="alert-danger"></span>
+
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="trailerId" th:field="*{trailerId}" readonly/>
+                </div>
+
+                <div class="form-group">
+                    <label for="typeId" th:text="#{typeId}"></label>
+                    <select id="typeId" th:field="*{typeId}" class="form-control">
+                        <option th:each="s : ${trailerType}"
+                                th:value="${s.key}"
+                                th:utext="${s.value}"
+                        />
+                    </select>
+                    <label th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="alert-danger"></label>
+                </div>
+
+                <div class="form-group">
+                    <label for="number" th:text="#{number}"></label>
+                    <input type="text" class="form-control" id="number" th:field="*{number}"/>
+                    <label th:if="${#fields.hasErrors('number')}" th:errors="*{number}" class="alert-danger"></label>
+                </div>
+
+                <div class="form-group">
+                    <label for="location" th:text="#{location}"></label>
+                    <input type="text" class="form-control" id="location" th:field="*{location}"/>
+                    <label th:if="${#fields.hasErrors('location')}" th:errors="*{location}"
+                           class="alert-danger"></label>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount" th:text="#{amount}"></label>
+                    <input type="number" class="form-control" id="amount" th:field="*{amount}"/>
+                    <label th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}" class="alert-danger"></label>
+                </div>
+
+                <div class="form-group">
+                    <label for="status" th:text="#{status}"></label>
+                    <select id="status" th:field="*{status}" class="form-control">
+                        <option th:each="s : ${status}"
+                                th:value="${s.key}"
+                                th:utext="${s.value}"
+                        />
+                    </select>
+                    <label th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="alert-danger"></label>
+                </div>
+
+                <div class="form-group">
+                    <label for="feature" th:text="#{feature}"></label>
+                    <input type="text" class="form-control" id="feature" th:field="*{feature}"/>
+                    <label th:if="${#fields.hasErrors('feature')}" th:errors="*{feature}" class="alert-danger"></label>
+                </div>
+
+                <div id="formFooter" class="form-group">
+                    <button type="submit" class="btn btn-primary form-control">Update</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

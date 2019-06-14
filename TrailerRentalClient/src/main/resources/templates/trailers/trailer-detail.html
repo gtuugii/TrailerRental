@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title><span th:text="#{trailerdetails}">Trailer Details</span></title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" th:text="#{trailerdetails}">Detail information of ${trailer.number}</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="col-xs-12">
+
+                <div class="row vertical-align">
+
+                    <div class="col-xs-7">
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{typeId}">Type</span></b></div>
+                            <div class="col-xs-6">
+                                <span th:if="${trailer.typeId== 0}">2 BEDROOMS</span>
+                                <span th:if="${trailer.typeId== 1}">3 BEDROOMS</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{location}">Location</span></b></div>
+                            <div class="col-xs-6"><span th:text="${trailer.location}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{amount}">Amount</span></b></div>
+                            <div class="col-xs-6"><span th:text="${trailer.amount}"></span></div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-5">
+                        <div class="row">
+                            <div class="col-xs-2"><b><span th:text="#{feature}">Feature</span></b></div>
+                            <div class="col-xs-6"><span th:text="${trailer.feature}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{status}">Status</span></b></div>
+                            <div class="col-xs-6"><span th:text="${trailer.status}"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

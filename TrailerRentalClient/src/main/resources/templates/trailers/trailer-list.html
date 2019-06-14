@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <!--<title th:text="#{userlist}"> &#45;&#45; Users List</title>-->
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span th:text="#{trailerlist}">Trailer List</span></h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" th:text="#{typeId}">Type</th>
+                    <th scope="col" th:text="#{number}">Number</th>
+                    <th scope="col" th:text="#{location}">Location</th>
+                    <th scope="col" th:text="#{amount}">Amount</th>
+                    <th scope="col" th:text="#{status}">Status</th>
+                    <th scope="col" th:text="#{feature}">Feature</th>
+                    <th scope="col"><span th:text="#{actions}">Actions</span> - <a th:href="@{/trailers/add}" class="btn btn-success"><span th:text="#{add}">Add</span></a></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="tt: ${trailers}">
+                    <td th:text="${tt.trailerId}">{{i + 1}}</td>
+                    <td th:text="${tt.typeId}">Type</td>
+                    <td th:text="${tt.number}">Number</td>
+                    <td th:text="${tt.location}">Location</td>
+                    <td th:text="${tt.amount}">Amount</td>
+                    <td th:text="${tt.status}">Status</td>
+                    <td th:text="${tt.feature}">Feature</td>
+                    <td>
+                        <a th:href="${'/trailers/detail/' + tt.trailerId}" class="btn btn-info"><span th:text="#{detail}">Detail</span></a>&nbsp;
+                        <a th:href="${'/trailers/edit/' + tt.trailerId}" class="btn btn-primary"><span th:text="#{edit}">Edit</span></a>
+                        <a th:href="${'/trailers/delete/' + tt.trailerId}" class="btn btn-danger"><span th:text="#{delete}">Delete</span></a>
+                    </td>
+                </tr>
+                </tbody>
+                <!--<tfoot>-->
+                <!--<tr>-->
+                    <!--<td></td>-->
+                    <!--<td></td>-->
+                    <!--<td></td>-->
+                    <!--<td></td>-->
+                    <!--<td>-->
+                        <!--<button class="btn btn-primary pull-right"><span th:text="#{previous}">Previous</span></button>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<button class="btn btn-primary"><span th:text="#{next}">Next</span></button>-->
+                    <!--</td>-->
+                    <!--<td></td>-->
+                    <!--<td></td>-->
+                <!--</tr>-->
+                <!--</tfoot>-->
+            </table>
+
+
+
+
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
