@@ -2,6 +2,7 @@ package mum.edu.swe.trailerrentalserver.controller;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import mum.edu.swe.trailerrentalserver.domain.Rent;
+import mum.edu.swe.trailerrentalserver.domain.RentList;
 import mum.edu.swe.trailerrentalserver.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,5 +45,20 @@ public class RentController {
         System.out.println("delete ===== Rent: " + rent);
         rentService.delete(id);
         return rent;
+    }
+
+    @GetMapping("/rents/trailerid/{trailerid}")
+    public List<Rent> getAllByTrailerId(@PathVariable("trailerid") Long trailerid){
+        return rentService.findRentsByTrailerId(trailerid);
+    }
+
+    @GetMapping("/rents/extrafields/trailerid/{trailerid}")
+    public List<RentList> getAllFieldsByTrailerId(@PathVariable("trailerid") Long trailerid){
+        return rentService.findRentList(trailerid);
+    }
+
+    @GetMapping("/rents/userid/{userid}")
+    public List<Rent> getAllByUserId(@PathVariable("userid") Long userid){
+        return rentService.findRentsByUserId(userid);
     }
 }

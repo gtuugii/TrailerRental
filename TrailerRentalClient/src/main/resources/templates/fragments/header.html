@@ -8,22 +8,6 @@
         <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
         <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <script>
-            // $(document).ready(function(){
-            //     $("#enLang").click(function () {
-            //         console.log('en click');
-            //         window.location.replace('?lang=' + 'en');
-            //
-            //     })
-            //
-            //     $("#mnLang").click(function () {
-            //         console.log('mn click');
-            //         window.location.replace('?lang=' + 'mn');
-            //
-            //     })
-            // });
-        </script>
-
     </div>
 
 </head>
@@ -47,6 +31,12 @@
                 </li>
                 <li>
                     <a class="navbar-brand" th:href="@{/trailers/list}" th:text="#{trailer}"></a>
+                </li>
+                <li>
+                    <a class="navbar-brand" th:href="@{/rents/list}" th:text="#{rent}"></a>
+                </li>
+                <li>
+                    <a class="navbar-brand" th:href="@{/payments/list}" th:text="#{payment}"></a>
                 </li>
 
                 <li class="dropdown">

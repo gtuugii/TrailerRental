@@ -6,7 +6,9 @@ import mum.edu.swe.trailerrentalserver.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -32,11 +34,30 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public List<Payment> findAll() {
-        return paymentRepository.findAll();
+        return paymentRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparing(Payment::getPaymentId).reversed())
+                .collect(Collectors.toList());
     }
 
     @Override
     public Payment findById(Long id) {
         return paymentRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Payment> findAllByRentId(Long rentId) {
+        return paymentRepository.findAllByRentId(rentId)
+                .stream()
+                .sorted(Comparator.comparing(Payment::getPaymentId).reversed())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Payment> findAllByUserId(Long userId) {
+        return paymentRepository.findAllByUserId(userId)
+                .stream()
+                .sorted(Comparator.comparing(Payment::getPaymentId).reversed())
+                .collect(Collectors.toList());
     }
 }
