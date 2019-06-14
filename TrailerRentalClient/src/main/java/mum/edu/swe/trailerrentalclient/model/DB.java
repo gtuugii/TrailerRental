@@ -51,4 +51,12 @@ public class DB {
         }
     };
 
+    // 0-2 BEDROOMS 1-3 BEDROOMS
+    public Map<Integer, String> trailerType = new HashMap<Integer, String>() {
+        {
+            put(0, "2 BEDROOMS");
+            put(1, "3 BEDROOMS");
+        }
+    };
+
 }
