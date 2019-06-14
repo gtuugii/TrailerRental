@@ -31,17 +31,6 @@ public class GlobalExceptionHandler {
 
     }
 
-//    @ExceptionHandler({WaaAuthorizationException.class})
-//    public String denied(Exception e) {
-//        return "403";
-//    }
-
-//    @ExceptionHandler({Exception.class})
-//    public String doIt(Exception e) {
-//        e.printStackTrace();
-//        return "redirect:/authorization/login";
-//    }
-
     private ValidationErrorDTO convertError(List<FieldError> fieldErrors) {
         ValidationErrorDTO validationErrorDto = new ValidationErrorDTO();
         validationErrorDto.setErrorType("ValidationError");
@@ -52,6 +41,17 @@ public class GlobalExceptionHandler {
 
         return validationErrorDto;
 
+    }
+
+//    @ExceptionHandler({WaaAuthorizationException.class})
+//    public String denied(Exception e) {
+//        return "403";
+//    }
+
+    @ExceptionHandler({Exception.class})
+    public String doIt(Exception e) {
+        e.printStackTrace();
+        return "redirect:/authorization/login";
     }
 
 }

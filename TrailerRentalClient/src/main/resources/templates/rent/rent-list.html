@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{rentlist}"> -- Rent List</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span th:text="#{rentlist}">Rent List</span></h3>
+        </div>
+        <div class="panel-body">
+            <span th:text="${result}"></span>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" th:text="#{}">Trailer Number</th>
+                    <th scope="col" th:text="#{lastName}">Last Name</th>
+                    <th scope="col" th:text="#{email}">Email</th>
+                    <th scope="col" th:text="#{birthDate}">BirthDate</th>
+                    <th scope="col" th:text="#{registrationDate}">Registration Date</th>
+                    <th scope="col" th:text="#{phoneNumber}">Phone Number</th>
+                    <th scope="col"><span th:text="#{actions}">Actions</span> - <a th:href="@{/users/add}" class="btn btn-success"><span th:text="#{add}">Add</span></a></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user: ${users}">
+                    <td th:text="${user.id}">{{i + 1}}</td>
+                    <td th:text="${user.firstName}">FirstName</td>
+                    <td th:text="${user.lastName}">LastName</td>
+                    <td th:text="${user.email}">Email</td>
+                    <td th:text="${user.birthDate}">BirthDate</td>
+                    <td th:text="${user.regDate}">Registration Date</td>
+                    <td th:text="${user.phoneNumber}">Phone Number</td>
+                    <td>
+                        <a th:href="${'/users/detail/' + user.id}" class="btn btn-info"><span th:text="#{detail}">Detail</span></a>&nbsp;
+                        <a th:href="${'/users/edit/' + user.id}" class="btn btn-primary"><span th:text="#{edit}">Edit</span></a>
+                        <a th:href="${'/users/delete/' + user.id}" class="btn btn-danger"><span th:text="#{delete}">Delete</span></a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-primary pull-right"><span th:text="#{previous}">Previous</span></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary"><span th:text="#{next}">Next</span></button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+
+
+
+
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

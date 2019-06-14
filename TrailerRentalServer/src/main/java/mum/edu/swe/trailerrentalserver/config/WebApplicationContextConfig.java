@@ -8,15 +8,12 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan("mum.edu.swe.trailerrentalserver")
-public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
+public class WebApplicationContextConfig implements WebMvcConfigurer {
 
 	@Bean(name="messageResource")
 	public MessageSource messageSource() {

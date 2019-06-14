@@ -2,6 +2,7 @@ package mum.edu.swe.trailerrentalserver.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import mum.edu.swe.trailerrentalserver.domain.validators.UniqueEmail;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -20,6 +21,7 @@ public class User {
     @Column(unique = true)
     @NotEmpty
     @Size(min = 8, max = 50, message = "{Size.String.validation}")
+    @UniqueEmail
     private String email;
 
     @NotEmpty
@@ -35,6 +37,7 @@ public class User {
 
     @NotEmpty
     @Column(name="phone_number")
+    @Pattern(regexp = "\\(\\d{3}\\) \\d{3}-\\d{4}", message = "Phone number format is : [(###) ###-####] e.g-(123) 456-7890")
     private String phoneNumber;
 
     @Column(name="picture_path")
