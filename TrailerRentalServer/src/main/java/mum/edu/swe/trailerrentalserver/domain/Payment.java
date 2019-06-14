@@ -28,10 +28,12 @@ public class Payment {
 
     @ManyToOne
     @JsonIgnore
+    @JoinColumn(name="rent_id")
     private Rent rentId;
 
     @ManyToOne
     @JsonIgnore
+    @JoinColumn(name="user_id")
     private User userId;
 
 }

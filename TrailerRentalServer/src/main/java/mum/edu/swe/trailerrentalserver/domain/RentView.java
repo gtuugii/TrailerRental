@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 @Getter
 @Setter
-public class RentList {
+public class RentView {
 
     private Long rentId;
 

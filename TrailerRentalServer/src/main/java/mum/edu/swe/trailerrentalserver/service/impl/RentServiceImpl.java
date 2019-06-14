@@ -1,7 +1,7 @@
 package mum.edu.swe.trailerrentalserver.service.impl;
 
 import mum.edu.swe.trailerrentalserver.domain.Rent;
-import mum.edu.swe.trailerrentalserver.domain.RentList;
+import mum.edu.swe.trailerrentalserver.domain.RentView;
 import mum.edu.swe.trailerrentalserver.repository.RentRepository;
 import mum.edu.swe.trailerrentalserver.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +45,10 @@ public class RentServiceImpl implements RentService {
     }
 
     @Override
-    public List<RentList> findRentList(Long TrailerId) {
+    public List<RentView> findRentList(Long TrailerId) {
         return rentRepository.findRentList(TrailerId)
                 .stream()
-                .sorted(Comparator.comparing(RentList::getRentDate).reversed())
+                .sorted(Comparator.comparing(RentView::getRentDate).reversed())
                 .collect(Collectors.toList());
     }
 

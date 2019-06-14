@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -11,6 +12,7 @@ public class Trailer {
 
     private Long trailerId;
 
+    @NotNull
     private int typeId;
 
     @NotEmpty

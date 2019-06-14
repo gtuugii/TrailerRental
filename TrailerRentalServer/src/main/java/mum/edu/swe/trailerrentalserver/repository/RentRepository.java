@@ -1,7 +1,7 @@
 package mum.edu.swe.trailerrentalserver.repository;
 
 import mum.edu.swe.trailerrentalserver.domain.Rent;
-import mum.edu.swe.trailerrentalserver.domain.RentList;
+import mum.edu.swe.trailerrentalserver.domain.RentView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +18,7 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
             "LEFT JOIN user u on u.user_id=r.user_id " +
             "WHERE t.trailer_id LIKE :TrailerId%",
             nativeQuery = true)
-    List<RentList> findRentList(@Param("TrailerId") Long TrailerId);
+    List<RentView> findRentList(@Param("TrailerId") Long TrailerId);
 
     List<Rent> findRentsByTrailerId(Long TrailerId);
 

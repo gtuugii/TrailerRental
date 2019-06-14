@@ -1,13 +1,10 @@
 package mum.edu.swe.trailerrentalserver.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import mum.edu.swe.trailerrentalserver.domain.Rent;
-import mum.edu.swe.trailerrentalserver.domain.RentList;
+import mum.edu.swe.trailerrentalserver.domain.RentView;
 import mum.edu.swe.trailerrentalserver.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -53,7 +50,7 @@ public class RentController {
     }
 
     @GetMapping("/rents/extrafields/trailerid/{trailerid}")
-    public List<RentList> getAllFieldsByTrailerId(@PathVariable("trailerid") Long trailerid){
+    public List<RentView> getAllFieldsByTrailerId(@PathVariable("trailerid") Long trailerid){
         return rentService.findRentList(trailerid);
     }
 

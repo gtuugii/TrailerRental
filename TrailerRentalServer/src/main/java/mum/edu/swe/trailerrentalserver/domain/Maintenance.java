@@ -43,10 +43,12 @@ public class Maintenance {
 
     @ManyToOne
     @JsonIgnore
+    @JoinColumn(name="trailer_id")
     private Trailer trailerId;
 
     @ManyToOne
     @JsonIgnore
+    @JoinColumn(name="user_id")
     private User userId;
 
 }
