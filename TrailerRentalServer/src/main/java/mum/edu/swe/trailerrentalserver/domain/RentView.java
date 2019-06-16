@@ -29,12 +29,5 @@ public class RentView {
     private float amount;
 
     private int status;
-
-//    public LocalDate getRentDate() {
-//        return rentDate;
-//    }
-//
-//    public void setRentDate(LocalDate rentDate) {
-//        this.rentDate = rentDate;
-//    }
+    
 }
