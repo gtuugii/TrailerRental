@@ -10,11 +10,11 @@ public class RentView {
 
     private Long rentId;
 
-    private Long trailerId;
+    private Trailer trailerId;
 
     private String trailerNumber;
 
-    private Long userId;
+    private User userId;
 
     private String customerName;
 

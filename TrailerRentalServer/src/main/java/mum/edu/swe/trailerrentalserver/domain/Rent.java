@@ -45,13 +45,13 @@ public class Rent {
     private LocalDate payDate;
 
     @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name="trailer_id")
+    //@JsonIgnore
+    @JoinColumn(name="trailer_id", nullable = false)
     private Trailer trailerId;
 
     @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name="user_id")
+    //@JsonIgnore
+    @JoinColumn(name="user_id", nullable = false)
     private User userId;
 
 }

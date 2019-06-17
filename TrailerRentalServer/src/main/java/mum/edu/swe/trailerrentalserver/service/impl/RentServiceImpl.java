@@ -36,7 +36,8 @@ public class RentServiceImpl implements RentService {
 
     @Override
     public List<Rent> findAll() {
-        return rentRepository.findAll(Sort.by("rent_date").descending());
+        return rentRepository.findAll(Sort.by("rentDate").descending());
+        //return rentRepository.findAll();
     }
 
     @Override
