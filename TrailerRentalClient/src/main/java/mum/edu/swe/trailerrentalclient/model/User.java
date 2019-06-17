@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,7 +18,7 @@ public class User {
     @NotEmpty
     @Size(min = 8, max = 50, message = "{Size.String.validation}")
     @Email
-    //@Pattern(regexp=".+@.+\\.[a-z]+")
+    //@UniqueEmail
     private String email;
 
     @NotEmpty
@@ -36,7 +33,7 @@ public class User {
     private String lastName;
 
     @NotEmpty
-    //@Pattern(regexp="(^$|[0-9]{10})")
+    @Pattern(regexp = "\\(\\d{3}\\) \\d{3}-\\d{4}", message = "(123) 456-7890")
     private String phoneNumber;
 
     private String picturePath;

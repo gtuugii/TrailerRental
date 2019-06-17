@@ -29,8 +29,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user: ${users}">
-                    <td th:text="${user.id}">{{i + 1}}</td>
+                <tr th:each="s: ${rents}">
+                    <td th:text="${s.}">{{i + 1}}</td>
                     <td th:text="${user.firstName}">FirstName</td>
                     <td th:text="${user.lastName}">LastName</td>
                     <td th:text="${user.email}">Email</td>
@@ -38,9 +38,9 @@
                     <td th:text="${user.regDate}">Registration Date</td>
                     <td th:text="${user.phoneNumber}">Phone Number</td>
                     <td>
-                        <a th:href="${'/users/detail/' + user.id}" class="btn btn-info"><span th:text="#{detail}">Detail</span></a>&nbsp;
-                        <a th:href="${'/users/edit/' + user.id}" class="btn btn-primary"><span th:text="#{edit}">Edit</span></a>
-                        <a th:href="${'/users/delete/' + user.id}" class="btn btn-danger"><span th:text="#{delete}">Delete</span></a>
+                        <a th:href="${'/rents/detail/' + user.id}" class="btn btn-info"><span th:text="#{detail}">Detail</span></a>&nbsp;
+                        <a th:href="${'/rents/edit/' + user.id}" class="btn btn-primary"><span th:text="#{edit}">Edit</span></a>
+                        <a th:href="${'/rents/delete/' + user.id}" class="btn btn-danger"><span th:text="#{delete}">Delete</span></a>
                     </td>
                 </tr>
                 </tbody>
