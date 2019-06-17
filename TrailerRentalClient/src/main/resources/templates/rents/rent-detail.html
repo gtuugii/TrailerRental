@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title><span th:text="#{rentdetails}">Rent Details</span></title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" th:text="#{rentdetails}">Detail information of ${rent.trailerId.number}</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="col-xs-12">
+
+                <div class="row vertical-align">
+
+                    <div class="col-xs-6">
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{rentId}">rent Id</span></b></div>
+                            <div class="col-xs-6"><span th:text="${rent.rentId}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{trailerNumber}">Trailer Number</span></b></div>
+                            <div class="col-xs-6"><span th:text="${rent.trailerId.number}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{fullName}">Full Name</span></b></div>
+                            <div class="col-xs-6"><span th:text="${rent.userId.getUserAsText()}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{phoneNumber}">Phone Number</span></b></div>
+                            <div class="col-xs-6"><span th:text="${rent.userId.phoneNumber}"></span></div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{rentDate}">Rent Date</span></b></div>
+                            <div class="col-xs-6"><span th:text="${rent.rentDate}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{dueDate}">dueDate</span></b></div>
+                            <div class="col-xs-6"><span th:text="${rent.dueDate}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{amount}">Amount</span></b></div>
+                            <div class="col-xs-6"><span th:text="${#numbers.formatCurrency(rent.amount)}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{payDate}">payDate</span></b></div>
+                            <div class="col-xs-6"><span th:text="${rent.payDate}"></span></div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

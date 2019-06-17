@@ -14,7 +14,7 @@
         </div>
         <div id="formContent" class="panel-body">
             <span th:text="${result}" class="alert-danger"></span>
-            <form th:action="@{/rents/edit}" th:object="${rent}" method="post">
+            <form th:action="@{/rents/add}" th:object="${rent}" method="post">
                 <input type="hidden" name="rentId" id="rentId" th:value="${rent.rentId}" />
 
                 <div class="col-md-4">
@@ -86,7 +86,7 @@
                         <div style="float: right" >
                             <br>
                             <a href="/rents/list" class="btn btn-warning" style="margin-right: 2em;">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary">Rent a Trailer</button>
                         </div>
                     </div>
                 </div>

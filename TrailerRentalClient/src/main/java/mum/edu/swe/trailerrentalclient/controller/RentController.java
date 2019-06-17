@@ -99,7 +99,7 @@ public class RentController {
         session.setAttribute("userslist", users);
         model.addAttribute("userslist", users);
 
-        return "rents/rent-edit";
+        return "rents/rent-add";
     }
 
     @PostMapping("/add")
@@ -115,7 +115,7 @@ public class RentController {
             model.addAttribute("userslist", session.getAttribute("userslist"));
 
             if (bindingResult.hasErrors()) {
-                return "rents/rent-edit";
+                return "rents/rent-add";
             }
 
             HttpHeaders headers = new HttpHeaders();
@@ -127,7 +127,7 @@ public class RentController {
             ResponseEntity<String> result = restTemplate.postForEntity(api_url + "rent/", entity, String.class);
             System.out.println("result: " + result.getBody());
             if (result.getBody() == null || result.getBody().trim().isEmpty()) {
-                return "rents/rent-edit";
+                return "rents/rent-add";
             }
 
             if(!result.getBody().equalsIgnoreCase("true"))
@@ -139,25 +139,40 @@ public class RentController {
         catch(Exception e){
             System.out.println(e.getMessage());
             model.addAttribute("result", e);
-            return "rents/rent-edit";
+            return "rents/rent-add";
         }
         return "redirect:list";
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, Model model){
+    public String edit(@PathVariable("id") Long id, Model model, HttpSession session){
         try {
 
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
-
-            HttpEntity entity = new HttpEntity<>(headers);
             RestTemplate restTemplate = new RestTemplate();
 
-            ResponseEntity<Rent> response = restTemplate.exchange(api_url + "rent/" + id.toString(), HttpMethod.GET, entity, Rent.class);
+            //get users
+            HttpEntity<Trailer[]> entity = new HttpEntity<Trailer[]>(headers);
+            ResponseEntity<Trailer[]> response = restTemplate.exchange(api_url + "trailers", HttpMethod.GET, entity, Trailer[].class);
+            final List<Trailer> trailers = Arrays.stream(response.getBody()).collect(Collectors.toList());
 
-            Rent rent = response.getBody();
-            System.out.println("response: " + rent);
+            session.setAttribute("trailerslist", trailers);
+            model.addAttribute("trailerslist", trailers);
+
+            //get users
+            HttpEntity<User[]> entity2 = new HttpEntity<User[]>(headers);
+            ResponseEntity<User[]> response2 = restTemplate.exchange(api_url + "users", HttpMethod.GET, entity2, User[].class);
+            final List<User> users = Arrays.stream(response2.getBody()).collect(Collectors.toList());
+
+            session.setAttribute("userslist", users);
+            model.addAttribute("userslist", users);
+
+            //get rent
+            HttpEntity entity3 = new HttpEntity<>(headers);
+            ResponseEntity<Rent> response3 = restTemplate.exchange(api_url + "rent/" + id.toString(), HttpMethod.GET, entity3, Rent.class);
+
+            Rent rent = response3.getBody();
+            System.out.println("response3: " + rent);
 
             model.addAttribute("status", status.rentStatus);
             model.addAttribute("rent", rent);
@@ -174,11 +189,15 @@ public class RentController {
     public String edit(@Valid @ModelAttribute Rent rent,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes,
+                       HttpSession session,
                        Model model){
         try {
             model.addAttribute("status", status.rentStatus);
+            model.addAttribute("trailerslist", session.getAttribute("trailerslist"));
+            model.addAttribute("userslist", session.getAttribute("userslist"));
 
             if (bindingResult.hasErrors()) {
+                model.addAttribute("errors", bindingResult.getAllErrors());
                 return "rents/rent-edit";
             }
 
@@ -235,5 +254,7 @@ public class RentController {
         }
         return "result";
     }
+
+
 
 }

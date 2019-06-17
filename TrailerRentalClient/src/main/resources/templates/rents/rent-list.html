@@ -20,27 +20,27 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col" th:text="#{rentId}">Rent Id</th>
-<!--                    <th scope="col" th:text="#{trailerNumber}">Trailer Number</th>-->
-<!--                    <th scope="col" th:text="#{firstName}">full Name</th>-->
-<!--                    <th scope="col" th:text="#{phoneNumber}">phoneNumber</th>-->
+                    <th scope="col" th:text="#{trailerNumber}">Trailer Number</th>
+                    <th scope="col" th:text="#{fullName}">full Name</th>
+                    <th scope="col" th:text="#{phoneNumber}">phoneNumber</th>
                     <th scope="col" th:text="#{rentDate}">Rent Date</th>
                     <th scope="col" th:text="#{dueDate}">Due Date</th>
                     <th scope="col" th:text="#{amount}">Amount</th>
                     <th scope="col" th:text="#{payDate}">Pay Date</th>
                     <th scope="col" th:text="#{status}">Status</th>
-                    <th scope="col"><span th:text="#{actions}">Actions</span> - <a th:href="@{/rents/add}" class="btn btn-success"><span th:text="#{add}">New a Rent</span></a></th>
+                    <th scope="col"><span th:text="#{actions}">Actions</span> - <a th:href="@{/rents/add}" class="btn btn-success"><span th:text="#{rentadd}">New a Rent</span></a></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="rent, i : ${rents}">
                     <th scope="row" th:text="${i.count}+'.'"></th>
                     <td th:text="${rent.rentId}">rentid</td>
-<!--                    <td th:text="${rent.trailerId}">number</td>-->
-<!--                    <td th:text="${rent.userId}">full name</td>-->
-<!--                    <td th:text="${rent.userId}">phoneNumber</td>-->
+                    <td th:text="${rent.trailerId.number}">number</td>
+                    <td th:text="${rent.userId.getUserAsText()}">full name</td>
+                    <td th:text="${rent.userId.phoneNumber}">phoneNumber</td>
                     <td th:text="${rent.rentDate}">rentDate</td>
                     <td th:text="${rent.dueDate}">dueDate</td>
-                    <td th:text="${rent.amount}">amount</td>
+                    <td th:text="${#numbers.formatCurrency(rent.amount)}">amount</td>
                     <td th:text="${rent.payDate}">payDate</td>
                     <td th:text="${rent.status}">status</td>
                     <td>
