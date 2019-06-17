@@ -2,11 +2,16 @@ package mum.edu.swe.trailerrentalclient.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class Rent {
 
     private Long rentId;
@@ -26,7 +31,9 @@ public class Rent {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate payDate;
 
+    //private Long trailerId;
     private Trailer trailerId;
 
+    //private Long userId;
     private User userId;
 }

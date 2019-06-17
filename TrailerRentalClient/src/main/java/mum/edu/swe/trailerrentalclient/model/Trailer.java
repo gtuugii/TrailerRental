@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.beans.Transient;
 
 @Getter
 @Setter
@@ -29,6 +30,10 @@ public class Trailer {
     @NotEmpty
     private String feature;
 
-
     private String imagePath;
+
+    @Transient
+    public String getTrailerAsText() {
+        return trailerId + "-" + number;
+    }
 }

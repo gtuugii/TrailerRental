@@ -29,8 +29,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user: ${users}">
-                    <td th:text="${user.id}">{{i + 1}}</td>
+                <tr th:each="user, i: ${users}">
+                    <th scope="row" th:text="${i.count}+'.'"></th>
                     <td th:text="${user.firstName}">FirstName</td>
                     <td th:text="${user.lastName}">LastName</td>
                     <td th:text="${user.email}">Email</td>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{rentlist}"> -- Rent List</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span th:text="#{rentlist}">List of Rents</span></h3>
+        </div>
+        <div class="panel-body">
+            <span th:text="${result}"></span>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" th:text="#{rentId}">Rent Id</th>
+<!--                    <th scope="col" th:text="#{trailerNumber}">Trailer Number</th>-->
+<!--                    <th scope="col" th:text="#{firstName}">full Name</th>-->
+<!--                    <th scope="col" th:text="#{phoneNumber}">phoneNumber</th>-->
+                    <th scope="col" th:text="#{rentDate}">Rent Date</th>
+                    <th scope="col" th:text="#{dueDate}">Due Date</th>
+                    <th scope="col" th:text="#{amount}">Amount</th>
+                    <th scope="col" th:text="#{payDate}">Pay Date</th>
+                    <th scope="col" th:text="#{status}">Status</th>
+                    <th scope="col"><span th:text="#{actions}">Actions</span> - <a th:href="@{/rents/add}" class="btn btn-success"><span th:text="#{add}">New a Rent</span></a></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="rent, i : ${rents}">
+                    <th scope="row" th:text="${i.count}+'.'"></th>
+                    <td th:text="${rent.rentId}">rentid</td>
+<!--                    <td th:text="${rent.trailerId}">number</td>-->
+<!--                    <td th:text="${rent.userId}">full name</td>-->
+<!--                    <td th:text="${rent.userId}">phoneNumber</td>-->
+                    <td th:text="${rent.rentDate}">rentDate</td>
+                    <td th:text="${rent.dueDate}">dueDate</td>
+                    <td th:text="${rent.amount}">amount</td>
+                    <td th:text="${rent.payDate}">payDate</td>
+                    <td th:text="${rent.status}">status</td>
+                    <td>
+                        <a th:href="${'/rents/detail/' + rent.rentId}" class="btn btn-info"><span th:text="#{detail}">Detail</span></a>&nbsp;
+                        <a th:href="${'/rents/edit/' + rent.rentId}" class="btn btn-primary"><span th:text="#{edit}">Edit</span></a>
+                        <a th:href="${'/rents/delete/' + rent.rentId}" class="btn btn-danger"><span th:text="#{delete}">Delete</span></a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-primary pull-right"><span th:text="#{previous}">Previous</span></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary"><span th:text="#{next}">Next</span></button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+
+
+
+
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
+import java.beans.Transient;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -54,4 +55,8 @@ public class User {
 
     private List<Role> roles;
 
+    @Transient
+    public String getUserAsText() {
+        return firstName + "-" + lastName;
+    }
 }
