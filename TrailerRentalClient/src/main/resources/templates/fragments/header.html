@@ -1,12 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:fragment="header-css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
-        <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </div>
 
@@ -17,7 +15,7 @@
     <div class="container-fluid">
         <nav class="navbar navbar-inverse bg-success">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#" th:text="#{trailerrental}"></a>
+                <a class="navbar-brand" href="/home" th:text="#{trailerrental}"></a>
             </div>
             <ul class="nav navbar-nav">
                 <li>
