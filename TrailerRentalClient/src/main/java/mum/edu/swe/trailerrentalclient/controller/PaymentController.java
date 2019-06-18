@@ -1,10 +1,7 @@
 package mum.edu.swe.trailerrentalclient.controller;
 
 import mum.edu.swe.trailerrentalclient.config.Config;
-import mum.edu.swe.trailerrentalclient.model.DB;
-import mum.edu.swe.trailerrentalclient.model.Rent;
-import mum.edu.swe.trailerrentalclient.model.Trailer;
-import mum.edu.swe.trailerrentalclient.model.User;
+import mum.edu.swe.trailerrentalclient.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,9 +21,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/rents")
-//@SessionAttributes({ "trailerslist", "userslist" })
-public class RentController {
+@RequestMapping("/payments")
+public class PaymentController {
 
     private String api_url = Config.URL;
 
@@ -37,21 +33,20 @@ public class RentController {
     public String list(Model model){
         try{
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
-            HttpEntity<Rent[]> entity = new HttpEntity<Rent[]>(headers);
-
             RestTemplate restTemplate = new RestTemplate();
+            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            HttpEntity<Payment[]> entity = new HttpEntity<Payment[]>(headers);
 
-            ResponseEntity<Rent[]> response = restTemplate.exchange(api_url + "rents", HttpMethod.GET, entity, Rent[].class);
-            final List<Rent> rents = Arrays.stream(response.getBody()).collect(Collectors.toList());
+            ResponseEntity<Payment[]> response = restTemplate.exchange(api_url + "payments", HttpMethod.GET, entity, Payment[].class);
+            final List<Payment> payments = Arrays.stream(response.getBody()).collect(Collectors.toList());
 
-            model.addAttribute("rents", rents);
-            System.out.println("list - rents: " + rents);
+            model.addAttribute("payments", payments);
+            System.out.println("list - payments: " + payments);
         }
         catch (Exception e){
             System.out.println(e.getMessage());
         }
-        return "rents/rent-list";
+        return "payments/payment-list";
     }
 
     @GetMapping("/detail/{id}")
@@ -62,87 +57,76 @@ public class RentController {
             HttpEntity entity = new HttpEntity<>(headers);
             RestTemplate restTemplate = new RestTemplate();
 
-            ResponseEntity<Rent> response = restTemplate.exchange(api_url + "rent/" + id.toString(), HttpMethod.GET, entity, Rent.class);
+            ResponseEntity<Payment> response = restTemplate.exchange(api_url + "payment/" + id.toString(), HttpMethod.GET, entity, Payment.class);
 
-            Rent r = response.getBody();
+            Payment r = response.getBody();
             System.out.println("response: " + r);
 
-            model.addAttribute("rent", r);
+            model.addAttribute("payment", r);
         }
         catch(Exception e){
             System.out.println(e.getMessage());
         }
-        return "rents/rent-detail";
+        return "payments/payment-detail";
     }
 
     @GetMapping("/add")
-    public String add(@ModelAttribute Rent rent, Model model, HttpSession session){
-        System.out.println("rents/rent-add");
-
-        model.addAttribute("status", status.rentStatus);
-        System.out.println(status.rentStatus);
+    public String add(@ModelAttribute Payment payment, Model model, HttpSession session){
+        System.out.println("payments/payment-add");
 
         HttpHeaders headers = new HttpHeaders();
         RestTemplate restTemplate = new RestTemplate();
 
-        HttpEntity<Trailer[]> entity = new HttpEntity<Trailer[]>(headers);
-        ResponseEntity<Trailer[]> response = restTemplate.exchange(api_url + "trailers", HttpMethod.GET, entity, Trailer[].class);
-        final List<Trailer> trailers = Arrays.stream(response.getBody()).collect(Collectors.toList());
+        HttpEntity<Rent[]> entity = new HttpEntity<Rent[]>(headers);
+        ResponseEntity<Rent[]> response = restTemplate.exchange(api_url + "rents", HttpMethod.GET, entity, Rent[].class);
+        final List<Rent> rents = Arrays.stream(response.getBody()).collect(Collectors.toList());
 
-        session.setAttribute("trailerslist", trailers);
-        model.addAttribute("trailerslist", trailers);
+        session.setAttribute("rentslist", rents);
+        model.addAttribute("rentslist", rents);
 
-        HttpEntity<User[]> entity2 = new HttpEntity<User[]>(headers);
-        ResponseEntity<User[]> response2 = restTemplate.exchange(api_url + "users", HttpMethod.GET, entity2, User[].class);
-        final List<User> users = Arrays.stream(response2.getBody()).collect(Collectors.toList());
-
-        session.setAttribute("userslist", users);
-        model.addAttribute("userslist", users);
-
-        return "rents/rent-add";
+        return "payments/payment-add";
     }
 
     @PostMapping("/add")
-    public String save(@Valid @ModelAttribute Rent rent,
+    public String save(@Valid @ModelAttribute Payment payment,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes,
                        HttpSession session,
                        Model model){
         String result_str = "saved";
         try {
-            model.addAttribute("status", status.rentStatus);
-            model.addAttribute("trailerslist", session.getAttribute("trailerslist"));
-            model.addAttribute("userslist", session.getAttribute("userslist"));
+            model.addAttribute("rentslist", session.getAttribute("rentslist"));
 
             if (bindingResult.hasErrors()) {
-                return "rents/rent-add";
+                return "payments/payment-add";
             }
 
             HttpHeaders headers = new HttpHeaders();
             //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
-            HttpEntity<Rent> entity = new HttpEntity<>(rent, headers);
+            HttpEntity<Payment> entity = new HttpEntity<>(payment, headers);
 
             RestTemplate restTemplate = new RestTemplate();
 
-            ResponseEntity<String> result = restTemplate.postForEntity(api_url + "rent/", entity, String.class);
+            ResponseEntity<String> result = restTemplate.postForEntity(api_url + "payment/", entity, String.class);
             System.out.println("result: " + result.getBody());
             if (result.getBody() == null || result.getBody().trim().isEmpty()) {
-                return "rents/rent-add";
+                return "payments/payment-add";
             }
 
             if(!result.getBody().equalsIgnoreCase("true"))
                 result_str = result.getBody();
 
-            redirectAttributes.addFlashAttribute("rent", rent);
+            redirectAttributes.addFlashAttribute("payment", payment);
             redirectAttributes.addFlashAttribute("result", result_str);
         }
         catch(Exception e){
             System.out.println(e.getMessage());
             model.addAttribute("result", e);
-            return "rents/rent-add";
+            return "payments/payment-add";
         }
         return "redirect:list";
     }
+
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model, HttpSession session){
@@ -151,67 +135,56 @@ public class RentController {
             HttpHeaders headers = new HttpHeaders();
             RestTemplate restTemplate = new RestTemplate();
 
-            //get users
-            HttpEntity<Trailer[]> entity = new HttpEntity<Trailer[]>(headers);
-            ResponseEntity<Trailer[]> response = restTemplate.exchange(api_url + "trailers", HttpMethod.GET, entity, Trailer[].class);
-            final List<Trailer> trailers = Arrays.stream(response.getBody()).collect(Collectors.toList());
+            //get rents
+            HttpEntity<Rent[]> entity = new HttpEntity<Rent[]>(headers);
+            ResponseEntity<Rent[]> response = restTemplate.exchange(api_url + "rents", HttpMethod.GET, entity, Rent[].class);
+            final List<Rent> rents = Arrays.stream(response.getBody()).collect(Collectors.toList());
 
-            session.setAttribute("trailerslist", trailers);
-            model.addAttribute("trailerslist", trailers);
+            session.setAttribute("rentslist", rents);
+            model.addAttribute("rentslist", rents);
 
-            //get users
-            HttpEntity<User[]> entity2 = new HttpEntity<User[]>(headers);
-            ResponseEntity<User[]> response2 = restTemplate.exchange(api_url + "users", HttpMethod.GET, entity2, User[].class);
-            final List<User> users = Arrays.stream(response2.getBody()).collect(Collectors.toList());
-
-            session.setAttribute("userslist", users);
-            model.addAttribute("userslist", users);
-
-            //get rent
+            //get payment
             HttpEntity entity3 = new HttpEntity<>(headers);
-            ResponseEntity<Rent> response3 = restTemplate.exchange(api_url + "rent/" + id.toString(), HttpMethod.GET, entity3, Rent.class);
+            ResponseEntity<Payment> response3 = restTemplate.exchange(api_url + "payment/" + id.toString(), HttpMethod.GET, entity3, Payment.class);
 
-            Rent rent = response3.getBody();
-            System.out.println("response3: " + rent);
+            Payment payment = response3.getBody();
+            System.out.println("response3: " + payment);
 
-            model.addAttribute("status", status.rentStatus);
-            model.addAttribute("rent", rent);
+            model.addAttribute("payment", payment);
 
         }
         catch (Exception e){
             System.out.println(e.getMessage());
 
         }
-        return "rents/rent-edit";
+        return "payments/payment-edit";
     }
 
     @PostMapping("/edit")
-    public String edit(@Valid @ModelAttribute Rent rent,
+    public String edit(@Valid @ModelAttribute Payment payment,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes,
                        HttpSession session,
                        Model model){
         try {
-            model.addAttribute("status", status.rentStatus);
-            model.addAttribute("trailerslist", session.getAttribute("trailerslist"));
-            model.addAttribute("userslist", session.getAttribute("userslist"));
+            model.addAttribute("rentslist", session.getAttribute("rentslist"));
 
             if (bindingResult.hasErrors()) {
                 model.addAttribute("errors", bindingResult.getAllErrors());
-                return "rents/rent-edit";
+                return "payments/payment-edit";
             }
 
             HttpHeaders headers = new HttpHeaders();
             //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
-            HttpEntity<Rent> entity = new HttpEntity<>(rent, headers);
+            HttpEntity<Payment> entity = new HttpEntity<>(payment, headers);
 
             RestTemplate restTemplate = new RestTemplate();
 
-            ResponseEntity<String> result = restTemplate.exchange(api_url + "rent/", HttpMethod.POST, entity, String.class);
+            ResponseEntity<String> result = restTemplate.exchange(api_url + "payment/", HttpMethod.POST, entity, String.class);
 
             System.out.println("result: " + result.getBody());
             if (result.getBody() == null || result.getBody().trim().isEmpty()) {
-                return "rents/rent-edit";
+                return "payments/payment-edit";
             }
 
             String result_str = "edited";
@@ -223,7 +196,7 @@ public class RentController {
         catch(Exception e){
             System.out.println(e.getMessage());
             model.addAttribute("result", e);
-            return "rents/rent-edit";
+            return "payments/payment-edit";
         }
         return "redirect:list";
     }
@@ -239,7 +212,7 @@ public class RentController {
             HttpEntity entity = new HttpEntity<>(headers);
 
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> result = restTemplate.exchange(api_url + "rent/" + id, HttpMethod.DELETE, entity, String.class);
+            ResponseEntity<String> result = restTemplate.exchange(api_url + "payment/" + id, HttpMethod.DELETE, entity, String.class);
             System.out.println("result: " + result.getBody());
 
             String result_str = "Deleted";
@@ -254,7 +227,4 @@ public class RentController {
         }
         return "result";
     }
-
-
-
 }

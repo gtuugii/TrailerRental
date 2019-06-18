@@ -27,7 +27,7 @@ public class Payment {
     private float paidAmount;
 
     @ManyToOne
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name="rent_id")
     private Rent rentId;
 

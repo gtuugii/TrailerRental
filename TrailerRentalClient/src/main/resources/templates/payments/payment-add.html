@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Make Payment</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span th:text="#{rentadd}">Rent an Trailer</span></h3>
+        </div>
+        <div id="formContent" class="panel-body">
+            <span th:text="${result}" class="alert-danger"></span>
+            <form th:action="@{/payments/add}" th:object="${payment}" method="post">
+                <input type="hidden" name="paymentId" id="paymentId" th:value="${payment.paymentId}" />
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="rentId" th:text="#{rent}"></label>
+                        <label th:if="${#fields.hasErrors('rentId')}" th:errors="*{rentId}" class="alert-danger"></label>
+                        <select id="rentId" th:field="*{rentId.rentId}" class="form-control">
+                            <option th:each="s : ${rentslist}"
+                                    th:value="${s.rentId}"
+                                    th:utext="${s.getRentAsText()}"
+                            />
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="paidAmount" th:text="#{paidAmount}"></label>
+                        <label th:if="${#fields.hasErrors('paidAmount')}" th:errors="*{paidAmount}" class="alert-danger"></label>
+                        <input type="text" class="form-control" id="paidAmount" th:field="*{paidAmount}"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="payDate" th:text="#{payDate}"></label>
+                        <label th:if="${#fields.hasErrors('payDate')}" th:errors="*{payDate}" class="alert-danger"></label>
+                        <input type="date" class="form-control" id="payDate" th:field="*{payDate}" />
+                    </div>
+
+                    <div class="form-group">
+                        <div style="float: right" >
+                            <br>
+                            <a href="/payments/list" class="btn btn-warning" style="margin-right: 2em;">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Make Payment</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

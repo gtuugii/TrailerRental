@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.beans.Transient;
 import java.time.LocalDate;
 
 @Getter
@@ -37,4 +38,9 @@ public class Rent {
 
     //private Long userId;
     private User userId;
+
+    @Transient
+    public String getRentAsText() {
+        return rentId + "-" + trailerId.getTrailerAsText() + "-" + userId.getUserAsText();
+    }
 }

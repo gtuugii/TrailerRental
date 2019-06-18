@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{paymentlist}"> -- Payment List</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span th:text="#{paymentlist}">List of Payments</span></h3>
+        </div>
+        <div class="panel-body">
+            <span th:text="${result}"></span>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" th:text="#{paymentId}">Payment Id</th>
+                    <th scope="col" th:text="#{rentId}">rentId</th>
+                    <th scope="col" th:text="#{trailerNumber}">Trailer Number</th>
+                    <th scope="col" th:text="#{fullName}">full Name</th>
+                    <th scope="col" th:text="#{phoneNumber}">phoneNumber</th>
+                    <th scope="col" th:text="#{rentDate}">Rent Date</th>
+                    <th scope="col" th:text="#{dueDate}">Due Date</th>
+                    <th scope="col" th:text="#{paidAmount}">paidAmount</th>
+                    <th scope="col" th:text="#{payDate}">Pay Date</th>
+                    <th scope="col"><span th:text="#{actions}">Actions</span> - <a th:href="@{/payments/add}" class="btn btn-success"><span th:text="#{makePayment}">Make Payment</span></a></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p, i : ${payments}">
+                    <th scope="row" th:text="${i.count}+'.'"></th>
+                    <td th:text="${p.paymentId}">paymentId</td>
+                    <td th:text="${p.rentId.rentId}">rentId</td>
+                    <td th:text="${p.rentId.trailerId.number}">number</td>
+                    <td th:text="${p.rentId.userId.getUserAsText()}">full name</td>
+                    <td th:text="${p.rentId.userId.phoneNumber}">phoneNumber</td>
+                    <td th:text="${p.rentId.rentDate}">rentDate</td>
+                    <td th:text="${p.rentId.dueDate}">dueDate</td>
+                    <td th:text="${#numbers.formatCurrency(p.paidAmount)}">amount</td>
+                    <td th:text="${p.payDate}">payDate</td>
+                    <td>
+                        <a th:href="${'/payments/detail/' + p.paymentId}" class="btn btn-info"><span th:text="#{detail}">Detail</span></a>&nbsp;
+                        <a th:href="${'/payments/edit/' + p.paymentId}" class="btn btn-primary"><span th:text="#{edit}">Edit</span></a>
+                        <a th:href="${'/payments/delete/' + p.paymentId}" class="btn btn-danger"><span th:text="#{delete}">Delete</span></a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-primary pull-right"><span th:text="#{previous}">Previous</span></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary"><span th:text="#{next}">Next</span></button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

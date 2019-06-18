@@ -42,12 +42,12 @@ public class Maintenance {
     private String description;
 
     @ManyToOne
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name="trailer_id")
     private Trailer trailerId;
 
     @ManyToOne
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name="user_id")
     private User userId;
 
