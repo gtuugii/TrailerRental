@@ -2,6 +2,12 @@ package mum.edu.swe.trailerrentalserver.controller;
 
 import mum.edu.swe.trailerrentalserver.domain.Rent;
 import mum.edu.swe.trailerrentalserver.domain.RentView;
+import mum.edu.swe.trailerrentalserver.observe.LoggerObserver;
+import mum.edu.swe.trailerrentalserver.observe.SaveObserver;
+import mum.edu.swe.trailerrentalserver.observe.SendMailObserver;
+import mum.edu.swe.trailerrentalserver.observe.Subject;
+import mum.edu.swe.trailerrentalserver.service.observer.AddToRent;
+import mum.edu.swe.trailerrentalserver.service.observer.RentCart;
 import mum.edu.swe.trailerrentalserver.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -33,6 +39,18 @@ public class RentController {
     @PostMapping("/rent")
     public Rent save(@Valid @RequestBody Rent rent){
         System.out.println("save ===== Rent: " + rent);
+
+        //observer
+        Subject subject = new Subject();
+        new SaveObserver(subject);
+        new SendMailObserver(subject);
+        new LoggerObserver(subject);
+
+        RentCart rentCart = new RentCart(rent);
+        AddToRent addToRent = new AddToRent(rentCart);
+
+        subject.setState(addToRent);
+
         return rentService.save(rent);
     }
 

@@ -29,6 +29,9 @@ public class UserController {
     @Autowired
     DB status;
 
+    //@Autowired
+    //RestTemplate restTemplate;
+
     @GetMapping("/list")
     public String list(Model model){
         try{
