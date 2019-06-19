@@ -45,6 +45,8 @@ public class TrailerController {
             ResponseEntity<Trailer[]> response = restTemplate.exchange(api_url + "trailers", HttpMethod.GET, entity, Trailer[].class);
             final List<Trailer> trailers = Arrays.stream(response.getBody()).collect(Collectors.toList());
 
+            model.addAttribute("status", status.trailerStatus);
+            model.addAttribute("trailerType", status.trailerType);
             model.addAttribute("trailers", trailers);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -215,5 +217,34 @@ public class TrailerController {
         }
         return "redirect:list";
     }
+
+    @GetMapping("/search")
+    public String availableList(@RequestParam("trailernumber") String trailernumber,
+                                @RequestParam("statusID") Integer statusID,
+                                Model model) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            HttpEntity<Trailer[]> entity = new HttpEntity<Trailer[]>(headers);
+            RestTemplate restTemplate = new RestTemplate();
+
+            ResponseEntity<Trailer[]> response = restTemplate.exchange(
+                    api_url + "trailers/search?trailernumber="+trailernumber+"&statusID="+statusID,
+                    HttpMethod.GET, entity, Trailer[].class);
+            final List<Trailer> trailers = Arrays.stream(response.getBody()).collect(Collectors.toList());
+
+            System.out.println("trailers: " + trailers);
+
+            model.addAttribute("status", status.trailerStatus);
+            //model.addAttribute("trailerType", status.trailerType);
+            model.addAttribute("trailers", trailers);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("search - trailers");
+        return "trailers/trailer-list";
+    }
+
+
 
 }

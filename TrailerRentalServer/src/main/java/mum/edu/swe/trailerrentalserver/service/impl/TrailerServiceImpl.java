@@ -48,7 +48,27 @@ public class TrailerServiceImpl implements TrailerService {
     }
 
     @Override
-    public Trailer findAllByNumber(String number) {
-        return trailerRepository.findAllByNumber(number);
+    public List<Trailer> findAllByStatus(Integer status) {
+        return trailerRepository.findAllByStatus(status);
+    }
+
+    @Override
+    public Trailer updateTrailerStatus(Long trailer_id, Integer status) {
+        return trailerRepository.updateTrailerStatus(trailer_id, status);
+    }
+
+    @Override
+    public Integer countAllByStatus(Integer status) {
+        return trailerRepository.countAllByStatus(status);
+    }
+
+    @Override
+    public List<Trailer> findByNumberContainsAndStatus(String number, Integer status) {
+        return trailerRepository.findByNumberContainsAndStatus(number, status);
+    }
+
+    @Override
+    public List<Trailer> findAllByNumberContains(String number) {
+        return trailerRepository.findAllByNumberContains(number);
     }
 }

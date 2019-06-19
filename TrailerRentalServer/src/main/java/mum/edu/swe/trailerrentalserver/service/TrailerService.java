@@ -5,5 +5,10 @@ import mum.edu.swe.trailerrentalserver.domain.Trailer;
 import java.util.List;
 
 public interface TrailerService extends BaseService<Trailer> {
-    public Trailer findAllByNumber(String number);
+    List<Trailer> findByNumberContainsAndStatus(String number, Integer status);
+    List<Trailer> findAllByNumberContains(String number);
+
+    public List<Trailer> findAllByStatus(Integer status);
+    public Trailer updateTrailerStatus(Long trailer_id, Integer status);
+    public Integer countAllByStatus(Integer status);
 }

@@ -44,8 +44,24 @@ public class TrailerController {
         return trailer;
     }
 
-    @GetMapping("/trailer/number/{number}")
-    public Trailer getNumber(@PathVariable("number") String number){
-        return trailerService.findAllByNumber(number);
+    @GetMapping("/trailers/search")
+    public List<Trailer> search(@RequestParam("trailernumber") String number, @RequestParam("statusID") Integer statusID){
+        System.out.println("search =====" + number + " - " + statusID);
+
+        if(number == null)
+            return trailerService.findAllByStatus(statusID);
+        else if(statusID == -1)
+            return trailerService.findAllByNumberContains(number);
+        else
+            return trailerService.findByNumberContainsAndStatus(number, statusID);
     }
+
+    @GetMapping("/trailers/status/{status}")
+    public List<Trailer> findAllByStatus(@PathVariable("status") Integer status){
+        System.out.println("getAvailableTrailers =====");
+        return (List<Trailer>) trailerService.findAllByStatus(status);
+    }
+
+
+
 }
