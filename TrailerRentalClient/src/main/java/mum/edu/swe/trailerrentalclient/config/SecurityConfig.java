@@ -32,10 +32,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //        .and().csrf().disable();
 
-
         security.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
+                .antMatchers("/home").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/auth/do-login").permitAll()
                 .anyRequest().authenticated()
@@ -43,7 +43,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
                 .and()
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
-
-
     }
 }
