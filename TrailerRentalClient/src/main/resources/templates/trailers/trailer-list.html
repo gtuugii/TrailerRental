@@ -29,7 +29,7 @@
                         />
                     </select>
 
-                    <button class="btn btn-default" type="submit">
+                    <button class="btn btn-primary" type="submit">
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
                     Status: { 0 - MAINTENANCE,  1 - ACTIVE, 2 - PENDING, 3 - RENTED}
@@ -63,6 +63,22 @@
                         <a th:href="${'/trailers/delete/' + tt.trailerId}" class="btn btn-danger"><span th:text="#{delete}">Delete</span></a>
                     </td>
                 </tr>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-primary pull-right"><span th:text="#{previous}">Previous</span></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary"><span th:text="#{next}">Next</span></button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tfoot>
                 </tbody>
             </table>
         </div>

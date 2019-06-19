@@ -2,7 +2,9 @@ package mum.edu.swe.trailerrentalserver.controller;
 
 import mum.edu.swe.trailerrentalserver.domain.Payment;
 import mum.edu.swe.trailerrentalserver.service.PaymentService;
+import mum.edu.swe.trailerrentalserver.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +16,9 @@ public class PaymentController {
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    RentService rentService;
 
     @GetMapping("/payments")
     public List<Payment> getAll(){
@@ -27,6 +32,7 @@ public class PaymentController {
 
     @PostMapping("/payment")
     public Payment save(@RequestBody Payment payment){
+        //rentService.updateRentStatus(payment.getRentId().getRentId(), );
         return paymentService.save(payment);
     }
 
@@ -35,6 +41,16 @@ public class PaymentController {
         Payment payment = paymentService.findById(id);
         paymentService.delete(id);
         return payment;
+    }
+
+    @GetMapping("/payments/search")
+    public List<Payment> search(@RequestParam("trailernumber") String number){
+        System.out.println("search =====" + number);
+
+        if(number != null)
+            return paymentService.findAllByNumberContains(number);
+
+        return paymentService.findAll();
     }
 
 }

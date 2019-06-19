@@ -2,20 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{paymentlist}"> -- Payment List</title>
+    <title th:text="#{paymentReport}"> Report of Payment</title>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
 <div th:replace="fragments/header :: header"/>
 
-<div class="container-fluid">
+<div class="container">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title"><span th:text="#{paymentlist}">List of Payments</span></h3>
+            <h3><span th:text="#{paymentReport}">Report of Payment</span></h3>
         </div>
         <div class="panel-body">
-            <span th:text="${result}"></span>
-            <form class="navbar-form navbar-left" action="/payments/search">
+            <form class="navbar-form navbar-left" th:action="@{/paymentReport/search}">
                 <div >
                     <label for="trailernumber" th:text="#{trailerNumber}"></label>
                     <input type="text" placeholder="Name" name="trailernumber" id="trailernumber" th:value="${param.trailernumber}">
@@ -25,7 +24,10 @@
                     </button>
                 </div>
             </form>
-            <table class="table table-striped">
+            <div style="float: right">
+                <input type='button' class="btn btn-primary" onclick="tableToExcel('exportTable', 'exportTable.xls')" value="Export (Excel)">
+            </div>
+            <table class="table table-striped" id="exportTable">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -38,7 +40,6 @@
                     <th scope="col" th:text="#{dueDate}">Due Date</th>
                     <th scope="col" th:text="#{paidAmount}">paidAmount</th>
                     <th scope="col" th:text="#{payDate}">Pay Date</th>
-                    <th scope="col"><span th:text="#{actions}">Actions</span> - <a th:href="@{/payments/add}" class="btn btn-success"><span th:text="#{makePayment}">Make Payment</span></a></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,29 +54,9 @@
                     <td th:text="${p.rentId.dueDate}">dueDate</td>
                     <td th:text="${#numbers.formatCurrency(p.paidAmount)}">amount</td>
                     <td th:text="${p.payDate}">payDate</td>
-                    <td>
-                        <a th:href="${'/payments/detail/' + p.paymentId}" class="btn btn-info"><span th:text="#{detail}">Detail</span></a>&nbsp;
-                        <a th:href="${'/payments/edit/' + p.paymentId}" class="btn btn-primary"><span th:text="#{edit}">Edit</span></a>
-                        <a th:href="${'/payments/delete/' + p.paymentId}" class="btn btn-danger"><span th:text="#{delete}">Delete</span></a>
-                    </td>
                 </tr>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button class="btn btn-primary pull-right"><span th:text="#{previous}">Previous</span></button>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary"><span th:text="#{next}">Next</span></button>
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                </tfoot>
+
             </table>
 
         </div>

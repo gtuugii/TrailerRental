@@ -2,20 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{rentlist}"> -- Rent List</title>
+    <title th:text="#{rentReport}">Report of Rents</title>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
 <div th:replace="fragments/header :: header"/>
 
-<div class="container-fluid">
+<div class="container">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title"><span th:text="#{rentlist}">List of Rents</span></h3>
+            <h3><span th:text="#{rentReport}">Report of Rents</span></h3>
         </div>
         <div class="panel-body">
-            <span th:text="${result}"></span>
-            <form class="navbar-form navbar-left" action="/rents/search">
+            <form class="navbar-form navbar-left" th:action="@{/rentReport/search}">
                 <div >
                     <label for="trailernumber" th:text="#{trailerNumber}"></label>
                     <input type="text" placeholder="Name" name="trailernumber" id="trailernumber" th:value="${param.trailernumber}">
@@ -31,10 +30,12 @@
                     <button class="btn btn-primary" type="submit">
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
-                    Status: { 0 - CLOSE,  1 - PENDING, 2 - OPEN }
                 </div>
             </form>
-            <table class="table table-striped">
+            <div style="float: right">
+                <input type='button' class="btn btn-primary" onclick="tableToExcel('exportTable', 'exportTable.xls')" value="Export (Excel)">
+            </div>
+            <table class="table table-striped" id="exportTable">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -47,7 +48,6 @@
                     <th scope="col" th:text="#{amount}">Amount</th>
                     <th scope="col" th:text="#{payDate}">Pay Date</th>
                     <th scope="col" th:text="#{status}">Status</th>
-                    <th scope="col"><span th:text="#{actions}">Actions</span> - <a th:href="@{/rents/add}" class="btn btn-success"><span th:text="#{rentadd}">New a Rent</span></a></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -62,33 +62,9 @@
                     <td th:text="${#numbers.formatCurrency(rent.amount)}">amount</td>
                     <td th:text="${rent.payDate}">payDate</td>
                     <td th:text="${rent.status}">status</td>
-                    <td>
-                        <a th:href="${'/rents/detail/' + rent.rentId}" class="btn btn-info"><span th:text="#{detail}">Detail</span></a>&nbsp;
-                        <a th:href="${'/rents/edit/' + rent.rentId}" class="btn btn-primary"><span th:text="#{edit}">Edit</span></a>
-                        <a th:href="${'/rents/delete/' + rent.rentId}" class="btn btn-danger"><span th:text="#{close}">close</span></a>
-                    </td>
                 </tr>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button class="btn btn-primary pull-right"><span th:text="#{previous}">Previous</span></button>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary"><span th:text="#{next}">Next</span></button>
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                </tfoot>
             </table>
-
-
-
 
         </div>
     </div>
