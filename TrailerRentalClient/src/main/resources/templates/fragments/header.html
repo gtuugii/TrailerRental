@@ -21,23 +21,32 @@
                 </li>
             </div>
             <ul class="nav navbar-nav">
-                <li>
-                    <a class="navbar-brand" th:href="@{/authorization/login}" th:text="#{signin}"></a>
+                <li th:if="!${session.roles}">
+                    <a class="navbar-brand" th:href="@{/auth/login}" th:text="#{signin}"></a>
                 </li>
                 <li>
                     <a class="navbar-brand" th:href="@{/users/add}" th:text="#{signup}"></a>
                 </li>
-                <li>
+                <li th:if="${session.roles.contains('ADMIN')}">
                     <a class="navbar-brand" th:href="@{/users/list}" th:text="#{user}"></a>
                 </li>
-                <li>
+                <li th:if="${session.roles.contains('ADMIN')}">
                     <a class="navbar-brand" th:href="@{/trailers/list}" th:text="#{trailer}"></a>
                 </li>
-                <li>
+                <li th:if="${session.roles.contains('ADMIN')}">
                     <a class="navbar-brand" th:href="@{/rents/list}" th:text="#{rent}"></a>
                 </li>
-                <li>
+                <li th:if="${session.roles.contains('ADMIN')}">
                     <a class="navbar-brand" th:href="@{/payments/list}" th:text="#{payment}"></a>
+                </li>
+
+                <li class="dropdown" th:if="${session.roles.contains('ADMIN')}">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" th:text="#{reports}">
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/paymentReport}" th:text="#{paymentReport}">paymentReport</a></li>
+                        <li><a th:href="@{/rentReport}" th:text="#{rentReport}">rentReport</a></li>
+                    </ul>
                 </li>
 
                 <li class="dropdown">
@@ -63,9 +72,9 @@
             </form>
 
             <ul class="nav navbar-nav navbar-right">
-                <li sec:authorize="isAuthenticated()">
+                <li th:if="${session.roles}">
                     <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
-                        Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;
+                        <span th:text="${session.roles}" class="alert-danger"></span> - Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;
                     </a>
                     <form style="visibility: hidden" id="form" method="get" th:action="@{/auth/logout}"></form>
                 </li>
