@@ -15,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -22,7 +23,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 public class TrailerServiceImplTest {
 
-    private Long actual;
+    List<Trailer> actual = new ArrayList<Trailer>();
 
     @Autowired
     private TrailerService trailerService;
@@ -39,28 +40,31 @@ public class TrailerServiceImplTest {
         }
     }
 
-//    @Before
-//    public void setUp() throws Exception {
-//        List<Trailer> r1 = new Trailer(1, "A4", "Uthopio park - 4A", 510f, 1, "feature", "image");
-//        actual = r1..getTrailerId();
-//
-//        Mockito.when(trailerRepository.findAllByNumberContains("A4"))
-//                .thenReturn(r1);
-//
-//    }
-//
-//    @After
-//    public void tearDown() throws Exception {
-//    }
-//
-//    @Test
-//    public void findAllByNumberContains() {
-//    }
-//
-//    @Test
-//    public void whenFindByName() {
-//        String number = "A4";
-//        Trailer found = trailerService.findAllByNumberContains(number);
-//        assertEquals(found.getName(), name);
-//    }
+    @Before
+    public void setUp() throws Exception {
+        Trailer t1 = new Trailer(1, "4A", "Uthopio park - 4A", 510f, 1, "feature", "image");
+        Trailer t2 = new Trailer(1, "4B", "Uthopio park - 4B", 500f, 1, "feature", "image");
+
+        actual.add(t1);
+        //actual.add(t2);
+
+        Mockito.when(trailerRepository.findAllByNumberContains("4A"))
+                .thenReturn(actual);
+
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
+
+    @Test
+    public void findAllByNumberContains() {
+    }
+
+    @Test
+    public void whenFindByName() {
+        String number = "A4";
+        List<Trailer> found = trailerService.findAllByNumberContains(number);
+        assertEquals(found, actual);
+    }
 }
