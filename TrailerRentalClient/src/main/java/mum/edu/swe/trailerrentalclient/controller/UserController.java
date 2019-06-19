@@ -1,6 +1,7 @@
 package mum.edu.swe.trailerrentalclient.controller;
 
 import mum.edu.swe.trailerrentalclient.config.Config;
+import mum.edu.swe.trailerrentalclient.config.TokenHelper;
 import mum.edu.swe.trailerrentalclient.model.DB;
 import mum.edu.swe.trailerrentalclient.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private String api_url = Config.URL;
+    @Autowired
+    private TokenHelper tokenHelper;
 
     @Autowired
     DB status;
@@ -36,7 +39,7 @@ public class UserController {
     public String list(Model model){
         try{
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
 
             RestTemplate restTemplate = new RestTemplate();
@@ -57,7 +60,7 @@ public class UserController {
     public String detail(@PathVariable("id") Long id, Model model){
         try {
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity entity = new HttpEntity<>(headers);
             RestTemplate restTemplate = new RestTemplate();
 
@@ -100,7 +103,7 @@ public class UserController {
             }
 
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity<User> entity = new HttpEntity<>(user, headers);
 
             RestTemplate restTemplate = new RestTemplate();
@@ -131,7 +134,7 @@ public class UserController {
         try {
 
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
 
             HttpEntity entity = new HttpEntity<>(headers);
             RestTemplate restTemplate = new RestTemplate();
@@ -167,12 +170,11 @@ public class UserController {
             }
 
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
-            HttpEntity<User> entity = new HttpEntity<>(user, headers);
-
             RestTemplate restTemplate = new RestTemplate();
 
-            //ResponseEntity<String> result = restTemplate.exchange(api_url + "user/", HttpMethod.PUT, entity, String.class);
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            HttpEntity<User> entity = new HttpEntity<>(user, headers);
+
             ResponseEntity<String> result = restTemplate.exchange(api_url + "user/", HttpMethod.POST, entity, String.class);
 
             System.out.println("result: " + result.getBody());
@@ -201,7 +203,7 @@ public class UserController {
 
         try {
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity entity = new HttpEntity<>(headers);
 
             RestTemplate restTemplate = new RestTemplate();

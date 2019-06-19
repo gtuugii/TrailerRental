@@ -1,6 +1,7 @@
 package mum.edu.swe.trailerrentalclient.controller;
 
 import mum.edu.swe.trailerrentalclient.config.Config;
+import mum.edu.swe.trailerrentalclient.config.TokenHelper;
 import mum.edu.swe.trailerrentalclient.model.DB;
 import mum.edu.swe.trailerrentalclient.model.Trailer;
 import mum.edu.swe.trailerrentalclient.model.User;
@@ -30,13 +31,15 @@ public class TrailerController {
     @Autowired
     DB status;
 
+    @Autowired
+    private TokenHelper tokenHelper;
 
     @GetMapping("/list")
     public String list(Model model) {
         try {
             HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity<Trailer[]> entity = new HttpEntity<Trailer[]>(headers);
-
             RestTemplate restTemplate = new RestTemplate();
 
             ResponseEntity<Trailer[]> response = restTemplate.exchange(api_url + "trailers", HttpMethod.GET, entity, Trailer[].class);
@@ -54,7 +57,7 @@ public class TrailerController {
     public String detail(@PathVariable("id") Long id, Model model) {
         try {
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity entity = new HttpEntity<>(headers);
             RestTemplate restTemplate = new RestTemplate();
 
@@ -95,7 +98,7 @@ public class TrailerController {
             }
 
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity<Trailer> entity = new HttpEntity<>(trailer, headers);
 
             RestTemplate restTemplate = new RestTemplate();
@@ -125,7 +128,7 @@ public class TrailerController {
         try {
 
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
 
             HttpEntity entity = new HttpEntity<>(headers);
             RestTemplate restTemplate = new RestTemplate();
@@ -160,7 +163,7 @@ public class TrailerController {
             }
 
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity<Trailer> entity = new HttpEntity<>(trailer, headers);
 
             RestTemplate restTemplate = new RestTemplate();
@@ -193,7 +196,7 @@ public class TrailerController {
 
         try {
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity entity = new HttpEntity<>(headers);
 
             RestTemplate restTemplate = new RestTemplate();

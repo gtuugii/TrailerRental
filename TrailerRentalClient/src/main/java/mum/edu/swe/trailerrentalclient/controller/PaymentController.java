@@ -1,6 +1,7 @@
 package mum.edu.swe.trailerrentalclient.controller;
 
 import mum.edu.swe.trailerrentalclient.config.Config;
+import mum.edu.swe.trailerrentalclient.config.TokenHelper;
 import mum.edu.swe.trailerrentalclient.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -27,6 +28,9 @@ public class PaymentController {
     private String api_url = Config.URL;
 
     @Autowired
+    private TokenHelper tokenHelper;
+
+    @Autowired
     DB status;
 
     @GetMapping("/list")
@@ -34,7 +38,7 @@ public class PaymentController {
         try{
             HttpHeaders headers = new HttpHeaders();
             RestTemplate restTemplate = new RestTemplate();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity<Payment[]> entity = new HttpEntity<Payment[]>(headers);
 
             ResponseEntity<Payment[]> response = restTemplate.exchange(api_url + "payments", HttpMethod.GET, entity, Payment[].class);
@@ -53,7 +57,7 @@ public class PaymentController {
     public String detail(@PathVariable("id") Long id, Model model){
         try {
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity entity = new HttpEntity<>(headers);
             RestTemplate restTemplate = new RestTemplate();
 
@@ -76,6 +80,7 @@ public class PaymentController {
 
         HttpHeaders headers = new HttpHeaders();
         RestTemplate restTemplate = new RestTemplate();
+        headers.set("Authorization", "Bearer " + tokenHelper.getToken());
 
         HttpEntity<Rent[]> entity = new HttpEntity<Rent[]>(headers);
         ResponseEntity<Rent[]> response = restTemplate.exchange(api_url + "rents", HttpMethod.GET, entity, Rent[].class);
@@ -102,7 +107,7 @@ public class PaymentController {
             }
 
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity<Payment> entity = new HttpEntity<>(payment, headers);
 
             RestTemplate restTemplate = new RestTemplate();
@@ -134,6 +139,7 @@ public class PaymentController {
 
             HttpHeaders headers = new HttpHeaders();
             RestTemplate restTemplate = new RestTemplate();
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
 
             //get rents
             HttpEntity<Rent[]> entity = new HttpEntity<Rent[]>(headers);
@@ -175,7 +181,7 @@ public class PaymentController {
             }
 
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity<Payment> entity = new HttpEntity<>(payment, headers);
 
             RestTemplate restTemplate = new RestTemplate();
@@ -208,7 +214,7 @@ public class PaymentController {
 
         try {
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity entity = new HttpEntity<>(headers);
 
             RestTemplate restTemplate = new RestTemplate();

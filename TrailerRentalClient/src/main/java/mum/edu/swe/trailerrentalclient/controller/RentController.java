@@ -1,6 +1,7 @@
 package mum.edu.swe.trailerrentalclient.controller;
 
 import mum.edu.swe.trailerrentalclient.config.Config;
+import mum.edu.swe.trailerrentalclient.config.TokenHelper;
 import mum.edu.swe.trailerrentalclient.model.DB;
 import mum.edu.swe.trailerrentalclient.model.Rent;
 import mum.edu.swe.trailerrentalclient.model.Trailer;
@@ -33,11 +34,14 @@ public class RentController {
     @Autowired
     DB status;
 
+    @Autowired
+    private TokenHelper tokenHelper;
+
     @GetMapping("/list")
     public String list(Model model){
         try{
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity<Rent[]> entity = new HttpEntity<Rent[]>(headers);
 
             RestTemplate restTemplate = new RestTemplate();
@@ -58,7 +62,7 @@ public class RentController {
     public String detail(@PathVariable("id") Long id, Model model){
         try {
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity entity = new HttpEntity<>(headers);
             RestTemplate restTemplate = new RestTemplate();
 
@@ -84,6 +88,7 @@ public class RentController {
 
         HttpHeaders headers = new HttpHeaders();
         RestTemplate restTemplate = new RestTemplate();
+        headers.set("Authorization", "Bearer " + tokenHelper.getToken());
 
         HttpEntity<Trailer[]> entity = new HttpEntity<Trailer[]>(headers);
         ResponseEntity<Trailer[]> response = restTemplate.exchange(api_url + "trailers", HttpMethod.GET, entity, Trailer[].class);
@@ -119,7 +124,7 @@ public class RentController {
             }
 
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity<Rent> entity = new HttpEntity<>(rent, headers);
 
             RestTemplate restTemplate = new RestTemplate();
@@ -150,6 +155,7 @@ public class RentController {
 
             HttpHeaders headers = new HttpHeaders();
             RestTemplate restTemplate = new RestTemplate();
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
 
             //get users
             HttpEntity<Trailer[]> entity = new HttpEntity<Trailer[]>(headers);
@@ -202,7 +208,7 @@ public class RentController {
             }
 
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity<Rent> entity = new HttpEntity<>(rent, headers);
 
             RestTemplate restTemplate = new RestTemplate();
@@ -235,7 +241,7 @@ public class RentController {
 
         try {
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             HttpEntity entity = new HttpEntity<>(headers);
 
             RestTemplate restTemplate = new RestTemplate();

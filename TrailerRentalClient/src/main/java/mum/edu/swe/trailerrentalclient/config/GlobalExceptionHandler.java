@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({Exception.class})
     public String doIt(Exception e) {
         e.printStackTrace();
-        return "redirect:/authorization/login";
+        return "redirect:/auth/login";
     }
 
 }

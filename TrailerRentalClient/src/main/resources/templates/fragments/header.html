@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <div th:fragment="header-css">
         <meta charset="utf-8">
@@ -50,7 +51,7 @@
 
             </ul>
 
-            <form class="navbar-form navbar-left" action="/action_page.php">
+            <form class="navbar-form navbar-left" action="#">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search" name="search">
                     <div class="input-group-btn">
@@ -62,12 +63,11 @@
             </form>
 
             <ul class="nav navbar-nav navbar-right">
-<!--                <li sec:authorize="isAuthenticated()">-->
-                <li>
-                    <a href="/logout" th:href="@{#}" onclick="$('#form').submit();" th:text="#{signout}">
-                         <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;
+                <li sec:authorize="isAuthenticated()">
+                    <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
+                        Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;
                     </a>
-                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/authorization/logout}"></form>
+                    <form style="visibility: hidden" id="form" method="get" th:action="@{/auth/logout}"></form>
                 </li>
             </ul>
         </nav>
