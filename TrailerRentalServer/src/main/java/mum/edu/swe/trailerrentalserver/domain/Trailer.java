@@ -36,4 +36,14 @@ public class Trailer {
 
     @Column(name="image_path")
     private String imagePath;
+
+    public Trailer(@NotNull int typeId, @NotEmpty String number, String location, @Positive float amount, int status, String feature, String imagePath) {
+        this.typeId = typeId;
+        this.number = number;
+        this.location = location;
+        this.amount = amount;
+        this.status = status;
+        this.feature = feature;
+        this.imagePath = imagePath;
+    }
 }
