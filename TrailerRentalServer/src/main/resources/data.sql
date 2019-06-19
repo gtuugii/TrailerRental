@@ -13,5 +13,5 @@ values(3, "ganaa@mum.edu", "Gankhuyag", ".", "12345", "1111", "picture", "2018-1
 
 INSERT INTO trailer.user_role(role_id, user_id) VALUES (1, 1);
 INSERT INTO trailer.user_role(role_id, user_id) VALUES (2, 2);
-INSERT INTO trailer.user_role(role_id, user_id) VALUES (3, 3);
+INSERT INTO trailer.user_role(role_id, user_id) VALUES (3, 1);
 
