@@ -42,14 +42,14 @@ public class TrailerServiceImplTest {
 
     @Before
     public void setUp() throws Exception {
-        Trailer t1 = new Trailer(1, "4A", "Uthopio park - 4A", 510f, 1, "feature", "image");
-        Trailer t2 = new Trailer(1, "4B", "Uthopio park - 4B", 500f, 1, "feature", "image");
+        //Trailer t1 = new Trailer(1, "4A", "Uthopio park - 4A", 510f, 1, "feature", "image");
+        //Trailer t2 = new Trailer(1, "4B", "Uthopio park - 4B", 500f, 1, "feature", "image");
 
-        actual.add(t1);
+        //actual.add(t1);
         //actual.add(t2);
 
-        Mockito.when(trailerRepository.findAllByNumberContains("4A"))
-                .thenReturn(actual);
+        //Mockito.when(trailerRepository.findAllByNumberContains("4A"))
+        //        .thenReturn(actual);
 
     }
 
