@@ -1,7 +1,6 @@
 package mum.edu.swe.trailerrentalserver.service.impl;
 
 import mum.edu.swe.trailerrentalserver.domain.Rent;
-import mum.edu.swe.trailerrentalserver.domain.RentView;
 import mum.edu.swe.trailerrentalserver.repository.RentRepository;
 import mum.edu.swe.trailerrentalserver.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,14 +45,6 @@ public class RentServiceImpl implements RentService {
     }
 
     @Override
-    public List<RentView> findRentList(Long TrailerId) {
-        return rentRepository.findRentList(TrailerId)
-                .stream()
-                .sorted(Comparator.comparing(RentView::getRentDate).reversed())
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<Rent> findRentsByTrailerId(Long TrailerId) {
         return rentRepository.findRentsByTrailerId(TrailerId)
                 .stream()
@@ -68,4 +59,36 @@ public class RentServiceImpl implements RentService {
                 .sorted(Comparator.comparing(Rent::getRentDate).reversed())
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Rent> findByNumberContainsAndStatus(String number, Integer status) {
+        System.out.println("findByNumberContainsAndStatus");
+        return rentRepository.findByNumberContainsAndStatus(number, status);
+    }
+
+    @Override
+    public List<Rent> findAllByNumberContains(String number) {
+        System.out.println("findAllByNumberContains");
+        return rentRepository.findByNumberContains(number);
+    }
+
+    @Override
+    public List<Rent> findAllByStatus(Integer status) {
+        System.out.println("findAllByStatus");
+        return rentRepository.findAllByStatus(status);
+    }
+
+    @Override
+    public void updateRentStatus(Long rent_id, Integer status) {
+        System.out.println("rent_id: " + rent_id + ", status: " + status);
+        rentRepository.updateRentStatus(rent_id, status);
+        //return rentRepository.findById(rent_id).get();
+    }
+
+    @Override
+    public Integer countAllByStatus(Integer status) {
+        return rentRepository.countAllByStatus(status);
+    }
+
+
 }

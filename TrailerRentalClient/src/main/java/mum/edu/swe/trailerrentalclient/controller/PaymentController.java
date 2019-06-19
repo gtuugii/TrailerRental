@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,6 +54,29 @@ public class PaymentController {
         return "payments/payment-list";
     }
 
+    @GetMapping("/search")
+    public String availableList(@RequestParam("trailernumber") String trailernumber,
+                                Model model) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            HttpEntity<Payment[]> entity = new HttpEntity<Payment[]>(headers);
+            RestTemplate restTemplate = new RestTemplate();
+
+            ResponseEntity<Payment[]> response = restTemplate.exchange(
+                    api_url + "payments/search?trailernumber="+trailernumber,
+                    HttpMethod.GET, entity, Payment[].class);
+            final List<Payment> payments = Arrays.stream(response.getBody()).collect(Collectors.toList());
+
+            System.out.println("payments: " + payments);
+            model.addAttribute("payments", payments);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("search - payments");
+        return "payments/payment-list";
+    }
+
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") Long id, Model model){
         try {
@@ -77,13 +101,14 @@ public class PaymentController {
     @GetMapping("/add")
     public String add(@ModelAttribute Payment payment, Model model, HttpSession session){
         System.out.println("payments/payment-add");
-
+        payment.setPayDate(LocalDate.now());
         HttpHeaders headers = new HttpHeaders();
         RestTemplate restTemplate = new RestTemplate();
         headers.set("Authorization", "Bearer " + tokenHelper.getToken());
 
         HttpEntity<Rent[]> entity = new HttpEntity<Rent[]>(headers);
-        ResponseEntity<Rent[]> response = restTemplate.exchange(api_url + "rents", HttpMethod.GET, entity, Rent[].class);
+        //rents/search?trailernumber="+trailernumber+"&statusID="+statusID
+        ResponseEntity<Rent[]> response = restTemplate.exchange(api_url + "rents/search?trailernumber=&statusID=2", HttpMethod.GET, entity, Rent[].class);
         final List<Rent> rents = Arrays.stream(response.getBody()).collect(Collectors.toList());
 
         session.setAttribute("rentslist", rents);

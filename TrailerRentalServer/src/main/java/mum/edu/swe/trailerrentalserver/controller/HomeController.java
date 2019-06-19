@@ -34,13 +34,19 @@ public class HomeController {
         Dashboard dashboard = new Dashboard();
         System.out.println("dashboard =====");
 
-        dashboard.setAvailTrailers(trailerService.countAllByStatus(1).longValue());
-        dashboard.setTotalTrailers(trailerService.findAll().stream().collect(Collectors.counting()));
-        dashboard.setUnderTrailers(trailerService.countAllByStatus(0).longValue());
-        dashboard.setTotalPayments(paymentService.findAll().stream().collect(Collectors.counting()));
-        dashboard.setTotalRents(rentService.findAll().stream().collect(Collectors.counting()));
-        dashboard.setTotalTenants(userService.findAll().stream().collect(Collectors.counting()));
-
+        try {
+            dashboard.setAvailTrailers(trailerService.countAllByStatus(1).longValue());
+            dashboard.setTotalTrailers(trailerService.findAll().stream().collect(Collectors.counting()));
+            dashboard.setUnderTrailers(trailerService.countAllByStatus(0).longValue());
+            dashboard.setTotalPayments(paymentService.findAll().stream().collect(Collectors.counting()));
+            dashboard.setTotalRents(rentService.findAll().stream().collect(Collectors.counting()));
+            dashboard.setTotalTenants(userService.findAll().stream().collect(Collectors.counting()));
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex.getMessage());
+            return dashboard;
+        }
         return dashboard;
     }
 

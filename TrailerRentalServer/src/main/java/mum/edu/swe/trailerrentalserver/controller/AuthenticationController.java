@@ -9,7 +9,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/authentication")
-@CrossOrigin(origins = { "http://localhost:4200", "http://localhost:8888" }, maxAge = 6000, allowedHeaders = "*")
+//@CrossOrigin(origins = { "http://localhost:4200", "http://localhost:8888" }, maxAge = 6000, allowedHeaders = "*")
+@CrossOrigin(origins = "*", maxAge = 6000, allowedHeaders = "*")
 public class AuthenticationController {
 
     private AuthenticationService authenticationService;

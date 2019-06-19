@@ -60,4 +60,9 @@ public class PaymentServiceImpl implements PaymentService {
                 .sorted(Comparator.comparing(Payment::getPaymentId).reversed())
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Payment> findAllByNumberContains(String number) {
+        return paymentRepository.findAllByNumberContains(number);
+    }
 }

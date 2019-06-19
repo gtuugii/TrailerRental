@@ -11,4 +11,6 @@ public interface PaymentService extends BaseService<Payment> {
 
     public List<Payment> findAllByUserId(Long UserId);
 
+    public List<Payment> findAllByNumberContains(String number);
+
 }

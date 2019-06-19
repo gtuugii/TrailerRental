@@ -10,7 +10,7 @@
 <div class="container-fluid">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title"><span th:text="#{rentadd}">Rent an Trailer</span></h3>
+            <h3 class="panel-title"><span th:text="#{makePayment}">Make Payment</span></h3>
         </div>
         <div id="formContent" class="panel-body">
             <span th:text="${result}" class="alert-danger"></span>
@@ -19,7 +19,7 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="rentId" th:text="#{rent}"></label>
+                        <label for="rentId" th:text="#{availableRents}"></label>
                         <label th:if="${#fields.hasErrors('rentId')}" th:errors="*{rentId}" class="alert-danger"></label>
                         <select id="rentId" th:field="*{rentId.rentId}" class="form-control">
                             <option th:each="s : ${rentslist}"

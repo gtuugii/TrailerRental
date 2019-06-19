@@ -11,7 +11,9 @@
 <div class="container-fluid">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title"><span th:text="#{trailerlist}">Trailer List</span></h3>
+            <h3 class="panel-title"><span th:text="#{trailerlist}">Trailer List</span>
+
+            </h3>
         </div>
         <div class="panel-body">
             <form class="navbar-form navbar-left" action="/trailers/search">
@@ -30,7 +32,7 @@
                     <button class="btn btn-default" type="submit">
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
-
+                    Status: { 0 - MAINTENANCE,  1 - ACTIVE, 2 - PENDING, 3 - RENTED}
                 </div>
             </form>
             <table class="table table-striped">

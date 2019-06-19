@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,11 +51,38 @@ public class RentController {
             final List<Rent> rents = Arrays.stream(response.getBody()).collect(Collectors.toList());
 
             model.addAttribute("rents", rents);
+            model.addAttribute("status", status.rentStatus);
             System.out.println("list - rents: " + rents);
         }
         catch (Exception e){
             System.out.println(e.getMessage());
         }
+        return "rents/rent-list";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam("trailernumber") String trailernumber,
+                                @RequestParam("statusID") Integer statusID,
+                                Model model) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            HttpEntity<Rent[]> entity = new HttpEntity<Rent[]>(headers);
+            RestTemplate restTemplate = new RestTemplate();
+
+            ResponseEntity<Rent[]> response = restTemplate.exchange(
+                    api_url + "rents/search?trailernumber="+trailernumber+"&statusID="+statusID,
+                    HttpMethod.GET, entity, Rent[].class);
+            final List<Rent> rents = Arrays.stream(response.getBody()).collect(Collectors.toList());
+
+            System.out.println("rents: " + rents);
+
+            model.addAttribute("status", status.rentStatus);
+            model.addAttribute("rents", rents);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("search - rents");
         return "rents/rent-list";
     }
 
@@ -82,7 +110,8 @@ public class RentController {
     @GetMapping("/add")
     public String add(@ModelAttribute Rent rent, Model model, HttpSession session){
         System.out.println("rents/rent-add");
-
+        rent.setRentDate(LocalDate.now());
+        rent.setPayDate(LocalDate.now().plusMonths(1));
         model.addAttribute("status", status.rentStatus);
         System.out.println(status.rentStatus);
 
@@ -91,7 +120,7 @@ public class RentController {
         headers.set("Authorization", "Bearer " + tokenHelper.getToken());
 
         HttpEntity<Trailer[]> entity = new HttpEntity<Trailer[]>(headers);
-        ResponseEntity<Trailer[]> response = restTemplate.exchange(api_url + "trailers", HttpMethod.GET, entity, Trailer[].class);
+        ResponseEntity<Trailer[]> response = restTemplate.exchange(api_url + "trailers/search?trailernumber=&statusID=1", HttpMethod.GET, entity, Trailer[].class);
         final List<Trailer> trailers = Arrays.stream(response.getBody()).collect(Collectors.toList());
 
         session.setAttribute("trailerslist", trailers);

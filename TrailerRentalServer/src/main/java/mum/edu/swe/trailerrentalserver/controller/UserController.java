@@ -2,6 +2,7 @@ package mum.edu.swe.trailerrentalserver.controller;
 
 import mum.edu.swe.trailerrentalserver.domain.User;
 import mum.edu.swe.trailerrentalserver.exceptions.UserNotFoundException;
+import mum.edu.swe.trailerrentalserver.security.ConfSecured;
 import mum.edu.swe.trailerrentalserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -25,6 +26,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @ConfSecured("ADMIN")
     @GetMapping(value ="/users")
     public List<User> getAllUsers(){
         System.out.println("getAllUsers =====");

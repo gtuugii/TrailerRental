@@ -53,8 +53,10 @@ public class TrailerServiceImpl implements TrailerService {
     }
 
     @Override
-    public Trailer updateTrailerStatus(Long trailer_id, Integer status) {
-        return trailerRepository.updateTrailerStatus(trailer_id, status);
+    public void updateTrailerStatus(Long trailer_id, Integer status) {
+        System.out.println("trailer_id: " + trailer_id + ", status: " + status);
+        trailerRepository.updateTrailerStatus(trailer_id, status);
+        //return trailerRepository.findById(trailer_id).orElse(null);
     }
 
     @Override

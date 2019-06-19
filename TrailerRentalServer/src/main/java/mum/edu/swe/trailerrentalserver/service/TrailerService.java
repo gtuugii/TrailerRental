@@ -9,6 +9,6 @@ public interface TrailerService extends BaseService<Trailer> {
     List<Trailer> findAllByNumberContains(String number);
 
     public List<Trailer> findAllByStatus(Integer status);
-    public Trailer updateTrailerStatus(Long trailer_id, Integer status);
+    public void updateTrailerStatus(Long trailer_id, Integer status);
     public Integer countAllByStatus(Integer status);
 }
