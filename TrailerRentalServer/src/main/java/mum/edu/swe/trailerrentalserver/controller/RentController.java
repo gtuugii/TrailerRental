@@ -6,6 +6,7 @@ import mum.edu.swe.trailerrentalserver.observe.LoggerObserver;
 import mum.edu.swe.trailerrentalserver.observe.SaveObserver;
 import mum.edu.swe.trailerrentalserver.observe.SendMailObserver;
 import mum.edu.swe.trailerrentalserver.observe.Subject;
+import mum.edu.swe.trailerrentalserver.service.TrailerService;
 import mum.edu.swe.trailerrentalserver.service.observer.AddToRent;
 import mum.edu.swe.trailerrentalserver.service.observer.RentCart;
 import mum.edu.swe.trailerrentalserver.service.RentService;
@@ -23,6 +24,9 @@ public class RentController {
 
     @Autowired
     private RentService rentService;
+
+    @Autowired
+    private TrailerService trailerService;
 
     @GetMapping("/rents")
     public List<Rent> getAll(Model model){
@@ -45,11 +49,11 @@ public class RentController {
         new SaveObserver(subject);
         new SendMailObserver(subject);
         new LoggerObserver(subject);
-
         RentCart rentCart = new RentCart(rent);
         AddToRent addToRent = new AddToRent(rentCart);
-
         subject.setState(addToRent);
+
+        trailerService.updateTrailerStatus(rent.getTrailerId().getTrailerId(), 3);
 
         return rentService.save(rent);
     }
@@ -58,6 +62,7 @@ public class RentController {
     public Rent delete(@PathVariable("id") Long id){
         Rent rent = rentService.findById(id);
         System.out.println("delete ===== Rent: " + rent);
+        trailerService.updateTrailerStatus(rent.getTrailerId().getTrailerId(), 1);
         rentService.delete(id);
         return rent;
     }
