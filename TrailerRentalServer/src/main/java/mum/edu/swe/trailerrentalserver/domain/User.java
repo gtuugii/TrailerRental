@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -60,8 +61,8 @@ public class User {
     private LocalDate regDate;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable( name = "user_role",
+    @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id") )
-    private List<Role> roles;
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 }

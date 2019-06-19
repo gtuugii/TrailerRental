@@ -11,7 +11,7 @@
     </div>
 
 </head>
-<body>
+<body sec:authorize="isAuthenticated()">
 
 <div th:fragment="header">
     <div class="container-fluid">
@@ -22,7 +22,7 @@
                 </li>
             </div>
             <ul class="nav navbar-nav">
-                <li th:if="!${session.roles}">
+                <li th:if="!${session.token}">
                     <a class="navbar-brand" th:href="@{/auth/login}" th:text="#{signin}"></a>
                 </li>
                 <li>

@@ -18,6 +18,7 @@ public class TokenHelper {
 
     public void deleteToken(){
         httpSession.removeAttribute("token");
+        httpSession.removeAttribute("roles");
         SecurityContextHolder.clearContext();
     }
 

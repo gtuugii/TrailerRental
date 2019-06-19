@@ -9,6 +9,7 @@ import mum.edu.swe.trailerrentalserver.security.JwtUtil;
 import mum.edu.swe.trailerrentalserver.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired
     private HttpServletRequest httpServletRequest;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
@@ -53,7 +57,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public String login(Login login) {
-        User credential = authenticationRepo.findByEmailAndPassword(login.getEmail(), login.getPassword());
+        //System.out.println("login.getPassword(): " + login.getPassword());
+        String encodePass = bCryptPasswordEncoder.encode(login.getPassword());
+        encodePass = login.getPassword();
+
+        //System.out.println("encodePass: " + encodePass);
+
+        User credential = authenticationRepo.findByEmailAndPassword(login.getEmail(), encodePass);
 
         if (credential != null) {
             // generate token

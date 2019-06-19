@@ -34,6 +34,7 @@ public class HomeController {
 
     @GetMapping(value={"/", "/home"})
     public String list(Model model){
+        Dashboard r = new Dashboard();
         try{
             HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "Bearer " + tokenHelper.getToken());
@@ -42,13 +43,14 @@ public class HomeController {
 
             ResponseEntity<Dashboard> response = restTemplate.exchange(api_url + "dashboard", HttpMethod.GET, entity, Dashboard.class);
 
-            Dashboard r = response.getBody();
+            r = response.getBody();
             System.out.println("response: " + r);
             System.out.println(SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
             model.addAttribute("dashboard", r);
         }
         catch (Exception e){
             System.out.println(e.getMessage());
+            model.addAttribute("dashboard", r);
         }
 
         return "index";

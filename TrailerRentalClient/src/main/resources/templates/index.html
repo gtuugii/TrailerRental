@@ -9,10 +9,11 @@
 </head>
 <div th:replace="fragments/header :: header"/>
 
-<!--<body sec:authorize="isAuthenticated()">-->
-<body>
-
-<div class="container" th:if="${session.roles}">
+<body sec:authorize="isAuthenticated()">
+<!--<body>-->
+<!--<span class="badge" th:text="${session.roles}"></span>-->
+<!--<span class="badge" th:text="${session.token}"></span>-->
+<div class="container" th:if="${session.token}">
     <div class="row">
         <div class="col-sm-4">
             <div class="panel panel-primary">
@@ -39,7 +40,7 @@
     </div>
 </div>
 
-<div class="container" th:if="${session.roles}">
+<div class="container" th:if="${session.token}">
     <div class="row">
         <div class="col-sm-4">
             <div class="panel panel-primary">

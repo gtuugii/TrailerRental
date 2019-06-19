@@ -1,12 +1,16 @@
 package mum.edu.swe.trailerrentalserver.controller;
 
+import mum.edu.swe.trailerrentalserver.domain.Role;
 import mum.edu.swe.trailerrentalserver.domain.User;
 import mum.edu.swe.trailerrentalserver.exceptions.UserNotFoundException;
+import mum.edu.swe.trailerrentalserver.repository.RoleRepository;
 import mum.edu.swe.trailerrentalserver.security.ConfSecured;
 import mum.edu.swe.trailerrentalserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,17 +18,23 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = { "http://localhost:9999", "http://localhost:8888" }, maxAge = 6000, allowedHeaders = "*")
 //@CrossOrigin(origins = "*", maxAge = 6000, allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/v1")
+@Transactional
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @ConfSecured("ADMIN")
     @GetMapping(value ="/users")
@@ -53,6 +63,12 @@ public class UserController {
     //@ResponseStatus(HttpStatus.ACCEPTED)
     public User saveUser(@Valid @RequestBody User user) {
         System.out.println("create / update - User =====");
+
+        //user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setStatus(1);
+        Role userRole = roleRepository.findByRole("TENANT");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+
         userService.save(user);
         return user;
     }
