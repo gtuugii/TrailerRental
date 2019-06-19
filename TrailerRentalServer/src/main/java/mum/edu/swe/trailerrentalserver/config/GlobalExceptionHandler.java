@@ -1,6 +1,7 @@
 package mum.edu.swe.trailerrentalserver.config;
 
-import mum.edu.swe.trailerrentalserver.exceptions.ValidationErrorDTO;
+import mum.edu.swe.trailerrentalserver.domain.ValidationErrorDto;
+import mum.edu.swe.trailerrentalserver.exceptions.ConfAuthorizationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.http.HttpStatus;
@@ -20,38 +21,38 @@ public class GlobalExceptionHandler {
     @Autowired
     private MessageSourceAccessor messageSourceAccessor;
 
-
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseBody
-    public ValidationErrorDTO validationError(MethodArgumentNotValidException e) {
+    public ValidationErrorDto validationError(MethodArgumentNotValidException e) {
         BindingResult bindingResult = e.getBindingResult();
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         return convertError(fieldErrors);
 
     }
 
-    private ValidationErrorDTO convertError(List<FieldError> fieldErrors) {
-        ValidationErrorDTO validationErrorDto = new ValidationErrorDTO();
-        validationErrorDto.setErrorType("ValidationError");
-
-        for(FieldError fieldError : fieldErrors){
-            validationErrorDto.addFieldError(fieldError.getField(),messageSourceAccessor.getMessage(fieldError));
-        }
-
-        return validationErrorDto;
-
+    @ExceptionHandler({ConfAuthorizationException.class})
+    public String denied(Exception e) {
+        return "403";
     }
 
-//    @ExceptionHandler({WaaAuthorizationException.class})
-//    public String denied(Exception e) {
-//        return "403";
-//    }
 
     @ExceptionHandler({Exception.class})
     public String doIt(Exception e) {
         e.printStackTrace();
         return "redirect:/authorization/login";
+    }
+
+    private ValidationErrorDto convertError(List<FieldError> fieldErrors) {
+        ValidationErrorDto validationErrorDto = new ValidationErrorDto();
+        validationErrorDto.setErrorType("ValidationError");
+
+        for(FieldError fieldError : fieldErrors){
+            validationErrorDto.addError(fieldError.getField(),messageSourceAccessor.getMessage(fieldError));
+        }
+
+        return validationErrorDto;
+
     }
 
 }

@@ -17,16 +17,18 @@ public class TrailerrentalserverApplication {
 
     @Bean
     public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasenames("classpath:errorMessages");
+        ReloadableResourceBundleMessageSource messageSource
+                = new ReloadableResourceBundleMessageSource();
+
+        messageSource.setBasenames("classpath:errorMessages", "classpath:messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
 
-    @Bean
-    public MessageSourceAccessor getMessageSourceAccessor() {
-        return new MessageSourceAccessor(messageSource());
-    }
+//    @Bean
+//    public MessageSourceAccessor getMessageSourceAccessor() {
+//        return new MessageSourceAccessor(messageSource());
+//    }
 
     @Bean
     public LocalValidatorFactoryBean getValidator() {
